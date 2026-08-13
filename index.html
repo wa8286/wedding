@@ -72,13 +72,13 @@
             color: var(--primary);
         }
 
-        /* 2. 全螢幕封面（加上半透明暗色遮罩） */
+        /* 2. 全螢幕封面 (所有設備統一設定為左上對齊 left top) */
         .hero {
             height: 100vh;
             position: relative;
             background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://i.postimg.cc/vZbLtxZt/11.png');
             background-repeat: no-repeat;
-            background-position: center 20%;
+            background-position: left top; /* 統一設定為左上對齊 */
             background-size: cover;
             display: flex;
             flex-direction: column;
@@ -108,12 +108,12 @@
         }
 
         .hero-slogan {
-            font-size: 1.2rem;
-            letter-spacing: 6px;
-            border-top: 1px solid rgba(255,255,255,0.4);
-            border-bottom: 1px solid rgba(255,255,255,0.4);
-            padding: 10px 30px;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
             margin-bottom: 40px;
+            color: #ffffff;
+            font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         /* 3. 計時器視覺 */
@@ -170,7 +170,7 @@
             font-weight: 600;
         }
 
-        /* 4. 垂直 V-Card 資訊區（加上金葉子裝飾） */
+        /* 4. 卡片區塊 */
         .section {
             padding: 100px 20px;
             max-width: 800px;
@@ -197,12 +197,12 @@
             pointer-events: none;
         }
 
-        /* 金色植物葉子圖案元件 */
         .leaf-decor {
             position: absolute;
             width: 70px;
             opacity: 0.75;
             pointer-events: none;
+            z-index: 1;
         }
 
         .leaf-top-left {
@@ -222,10 +222,14 @@
             font-size: 2rem;
             margin-bottom: 40px;
             letter-spacing: 3px;
+            position: relative;
+            z-index: 2;
         }
 
         .info-item {
             margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .info-item:last-child {
@@ -244,7 +248,12 @@
             letter-spacing: 1px;
         }
 
-        /* 5. 表單控制項 */
+        /* 5. 表單與按鈕 */
+        form {
+            position: relative;
+            z-index: 2;
+        }
+
         .form-group {
             margin-bottom: 25px;
             text-align: left;
@@ -314,7 +323,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 金色質感送出按鈕 */
         .btn-submit {
             background: var(--gold-btn-bg);
             color: white;
@@ -348,8 +356,8 @@
 
         /* 📱 手機版 RWD 優化 */
         @media (max-width: 600px) {
-            .hero {
-                background-position: center 35%;
+            .hero { 
+                background-position: left top; /* 手機版同樣保持左上對齊 */
             }
             .hero-names { font-size: 2.2rem; }
             .hero-subnames { font-size: 1.4rem; margin-bottom: 15px; }
@@ -364,8 +372,8 @@
         }
 
         @media (max-width: 380px) {
-            .hero {
-                background-position: center 40%;
+            .hero { 
+                background-position: left top; 
             }
             .hero-names { font-size: 1.8rem; }
             .hero-subnames { font-size: 1.2rem; }
@@ -451,6 +459,15 @@
 
     <section class="section" id="rsvp" style="padding-top: 0;">
         <div class="v-card">
+            <svg class="leaf-decor leaf-top-left" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,80 Q30,40 80,10 Q60,50 10,80 Z" fill="#d4a373"/>
+                <path d="M10,80 Q50,60 90,40 Q50,70 10,80 Z" fill="#c49a6c"/>
+            </svg>
+            <svg class="leaf-decor leaf-bottom-right" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,80 Q30,40 80,10 Q60,50 10,80 Z" fill="#d4a373"/>
+                <path d="M10,80 Q50,60 90,40 Q50,70 10,80 Z" fill="#c49a6c"/>
+            </svg>
+
             <h2 class="section-title">出席回函</h2>
             
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {alert('填寫成功！非常期待您的蒞臨。');}"></iframe>
