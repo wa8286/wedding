@@ -11,12 +11,13 @@
     
     <style>
         :root {
-            --primary: #d4a373; /* Morandi 暖陽金 */
-            --secondary: #8da399; /* Morandi 暮綠 */
+            --primary: #d4a373;
+            --secondary: #8da399;
             --bg-light: #fbfbf9;
             --text-dark: #4a4a4a;
-            --white-glow: rgba(255, 255, 255, 0.85);
+            --white-glow: rgba(255, 255, 255, 0.88);
             --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --gold-btn-bg: linear-gradient(135deg, #e6c594 0%, #c49a6c 100%);
         }
 
         * {
@@ -48,7 +49,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -71,85 +72,41 @@
             color: var(--primary);
         }
 
-        /* 1. 預設設定：小型手機（直向螢幕，如 iPhone SE、一般舊款手機） */
-.hero {
-    height: 100vh;
-    position: relative;
-    /* 小手機：通常建議用 contain 完整顯示，或靠中靠上裁切以免主視覺消失 */
-    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') center top/cover no-repeat;
-    background-color: #000000; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #ffffff; 
-    padding: 20px;
-}
-
-/* 2. 📱 中大型智慧型手機（寬度 480px 以上，如 iPhone Pro Max、Plus 或橫向手機） */
-@media (min-width: 480px) {
-    .hero {
-        /* 稍微寬一點的螢幕：改為靠左上裁切，保留圖片左側核心內容 */
-        background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') left top/cover no-repeat;
-    }
-}
-
-/* 3. 📑 平板電腦（寬度 768px 以上，如 iPad、Android Tablet） */
-@media (min-width: 768px) {
-    .hero {
-        /* 平板螢幕比較方：改用完全置中裁切 (center center)，讓兩邊對稱裁切 */
-        background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') center center/cover no-repeat;
-    }
-}
-
-/* 4. 💻 桌上型電腦與筆電（寬度 1024px 以上，如 MacBook、一般電腦螢幕） */
-@media (min-width: 1024px) {
-    .hero {
-        /* 寬螢幕：如果圖片重點在右邊，可以改成靠右中裁切；此處示範維持完美置中 */
-        background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') center center/cover no-repeat;
-    }
-}
-
-/* 5. 🖥️ 4K 或超寬螢幕（寬度 1440px 以上） */
-@media (min-width: 1440px) {
-    .hero {
-        /* 當螢幕極寬時，圖片上下會被嚴重裁切，可以強制調整對齊垂直軸（例如靠上方） */
-        background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') center top/cover no-repeat;
-    }
-}
-
+        /* 2. 全螢幕封面（加上半透明暗色遮罩） */
         .hero {
             height: 100vh;
             position: relative;
-            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://i.postimg.cc/vZbLtxZt/11.png') left top/cover no-repeat;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://i.postimg.cc/vZbLtxZt/11.png');
+            background-repeat: no-repeat;
+            background-position: center 20%;
+            background-size: cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #ffffff; /* 改回白色文字 */
+            color: #ffffff;
             padding: 20px;
         }
 
-        /* 英文名字 */
         .hero-names {
-            font-size: 3.5rem;
-            font-weight: 350;
-            margin-bottom: 3px;
+            font-size: 3.0rem;
+            font-weight: 600;
+            margin-bottom: 5px;
             letter-spacing: 3px;
-        }
-
-        /* 中文名字 */
-        .hero-subnames {
-            font-size: 1.8rem;
-            letter-spacing: 4px;
-            margin-bottom: 30px;
-            opacity: 0.9;
             color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        /* 靈魂標語 */
+        .hero-subnames {
+            font-size: 2.0rem;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
         .hero-slogan {
             font-size: 1.2rem;
             letter-spacing: 6px;
@@ -181,7 +138,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.6);
         }
 
         .timer-box {
@@ -213,7 +170,7 @@
             font-weight: 600;
         }
 
-        /* 4. 垂直 V-Card 資訊區 */
+        /* 4. 垂直 V-Card 資訊區（加上金葉子裝飾） */
         .section {
             padding: 100px 20px;
             max-width: 800px;
@@ -228,6 +185,7 @@
             text-align: center;
             border: 1px solid rgba(212, 163, 115, 0.15);
             position: relative;
+            overflow: hidden;
         }
 
         .v-card::before {
@@ -239,16 +197,39 @@
             pointer-events: none;
         }
 
+        /* 金色植物葉子圖案元件 */
+        .leaf-decor {
+            position: absolute;
+            width: 70px;
+            opacity: 0.75;
+            pointer-events: none;
+        }
+
+        .leaf-top-left {
+            top: -10px;
+            left: -10px;
+            transform: rotate(0deg);
+        }
+
+        .leaf-bottom-right {
+            bottom: -10px;
+            right: -10px;
+            transform: rotate(180deg);
+        }
+
         .section-title {
             color: var(--primary);
             font-size: 2rem;
             margin-bottom: 40px;
             letter-spacing: 3px;
-            position: relative;
         }
 
         .info-item {
             margin-bottom: 30px;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
         }
 
         .info-item i {
@@ -263,53 +244,7 @@
             letter-spacing: 1px;
         }
 
-        /* 5. 摺疊式交通指引 */
-        .accordion {
-            margin-top: 40px;
-            text-align: left;
-        }
-
-        .accordion-item {
-            border-bottom: 1px solid #eee;
-            margin-bottom: 10px;
-        }
-
-        .accordion-header {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 15px 10px;
-            text-align: left;
-            font-size: 1.05rem;
-            font-family: 'Noto Serif TC', serif;
-            color: var(--text-dark);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-        }
-
-        .accordion-header:hover {
-            color: var(--primary);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            background-color: #fafafa;
-            border-radius: 4px;
-        }
-
-        .accordion-body {
-            padding: 20px;
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* 6. 表單控制項 */
+        /* 5. 表單控制項 */
         .form-group {
             margin-bottom: 25px;
             text-align: left;
@@ -379,8 +314,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* 金色質感送出按鈕 */
         .btn-submit {
-            background-color: var(--primary);
+            background: var(--gold-btn-bg);
             color: white;
             border: none;
             padding: 15px 40px;
@@ -391,15 +327,15 @@
             cursor: pointer;
             width: 100%;
             margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(212, 163, 115, 0.3);
-            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(196, 154, 108, 0.4);
+            transition: all 0.3s ease;
             font-weight: 600;
         }
 
         .btn-submit:hover {
-            background-color: #c39263;
+            opacity: 0.92;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 163, 115, 0.4);
+            box-shadow: 0 8px 25px rgba(196, 154, 108, 0.5);
         }
 
         footer {
@@ -410,16 +346,32 @@
             letter-spacing: 1px;
         }
 
-        /* 手機版 RWD */
+        /* 📱 手機版 RWD 優化 */
         @media (max-width: 600px) {
-            .hero-names { font-size: 1.2rem; }
-            .hero-slogan { font-size: 2.6rem; padding: 8px 15px; }
+            .hero {
+                background-position: center 35%;
+            }
+            .hero-names { font-size: 2.2rem; }
+            .hero-subnames { font-size: 1.4rem; margin-bottom: 15px; }
+            .hero-slogan { font-size: 1.2rem; }
             .timer-card { padding: 10px 5px; min-width: 60px; }
             .timer-num { font-size: 1.7rem; }
             .v-card { padding: 40px 20px; }
             .section { padding: 50px 15px; }
             .navbar a { margin: 0 10px; font-size: 0.85rem; }
             .form-row { flex-direction: column; gap: 0; }
+            .leaf-decor { width: 50px; }
+        }
+
+        @media (max-width: 380px) {
+            .hero {
+                background-position: center 40%;
+            }
+            .hero-names { font-size: 1.8rem; }
+            .hero-subnames { font-size: 1.2rem; }
+            .hero-slogan { font-size: 1.0rem; }
+            .timer-card { padding: 8px 3px; min-width: 50px; }
+            .timer-num { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -470,6 +422,15 @@
 
     <section class="section" id="details">
         <div class="v-card">
+            <svg class="leaf-decor leaf-top-left" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,80 Q30,40 80,10 Q60,50 10,80 Z" fill="#d4a373"/>
+                <path d="M10,80 Q50,60 90,40 Q50,70 10,80 Z" fill="#c49a6c"/>
+            </svg>
+            <svg class="leaf-decor leaf-bottom-right" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,80 Q30,40 80,10 Q60,50 10,80 Z" fill="#d4a373"/>
+                <path d="M10,80 Q50,60 90,40 Q50,70 10,80 Z" fill="#c49a6c"/>
+            </svg>
+
             <h2 class="section-title">婚禮詳情</h2>
             
             <div class="info-item">
@@ -483,7 +444,7 @@
             <div class="info-item">
                 <i class="fa-solid fa-location-dot"></i>
                 <p class="no-wrap"><b>台北市</b></p>
-                <p class="no-wrap" style="font-size: 0.95rem; color: #777; margin-top: 5px;">宴會地址與交通指南將隨正式喜帖寄送通知！</p>
+                <p class="no-wrap" style="font-size: 0.95rem; color: #777; margin-top: 5px;">詳細宴會廳地址與交通資訊會於正式喜帖中公告</p>
             </div>
         </div>
     </section>
@@ -492,7 +453,7 @@
         <div class="v-card">
             <h2 class="section-title">出席回函</h2>
             
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='#'; alert('填寫成功！非常期待您的蒞臨');}"></iframe>
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {alert('填寫成功！非常期待您的蒞臨。');}"></iframe>
             
             <form action="https://docs.google.com/forms/d/e/1FAIpQLSfqYAI8oZADSqTcx1xG07r4GaMJxgCO3DZxDPF0pAOLAvF4eg/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
                 
@@ -507,23 +468,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">與新人的關係<span>RELATIONSHIP</span></label>
+                    <label class="form-label">賓客歸類<span>RELATIONSHIP</span></label>
                     <select name="entry.740676292" class="form-control" required>
                         <option value="" disabled selected>請選擇</option>
-                        <option value="男方親戚">男方親戚</option>
-                        <option value="男方同學">男方同學</option>
-                        <option value="男方同事">男方同事</option>
                         <option value="男方好友">男方好友</option>
-                        <option value="----------">----------</option>
-                        <option value="女方親戚">女方親戚</option>
-                        <option value="女方同事">女方同事</option>
-                        <option value="女方同學">女方同學</option>
                         <option value="女方好友">女方好友</option>
+                        <option value="男方家人親戚">男方家人親戚</option>
+                        <option value="女方家人親戚">女方家人親戚</option>
                     </select>
                 </div>
 
-<div class="form-group">
-                    <label class="form-label">參加午宴人數<span>GUESTS</span></label>
+                <div class="form-group">
+                    <label class="form-label">參加午宴人數<span>ATTENDANCE NUMBER</span></label>
                     <select name="entry.733303240" id="attendance_count" class="form-control" required onchange="toggleAttendanceLogic()">
                         <option value="" disabled selected>請選擇人數</option>
                         <option value="0">無法出席，祝福你們</option>
@@ -538,29 +494,29 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label class="form-label">葷食人數<span>MEAT</span></label>
+                            <label class="form-label">葷食人數<span>MEAL (MEAT)</span></label>
                             <select name="entry.771437183" class="form-control">
-                                <option value="0 位" selected>0 位</option>
-                                <option value="1 位">1 位</option>
-                                <option value="2 位">2 位</option>
-                                <option value="3 位">3 位</option>
-                                <option value="4 位">4 位</option>
+                                <option value="0">0 位</option>
+                                <option value="1" selected>1 位</option>
+                                <option value="2">2 位</option>
+                                <option value="3">3 位</option>
+                                <option value="4">4 位</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">素食人數<span>VEGETARIAN</span></label>
+                            <label class="form-label">素食人數<span>MEAL (VEGETARIAN)</span></label>
                             <select name="entry.943134898" class="form-control">
-                                <option value="0 位" selected>0 位</option>
-                                <option value="1 位">1 位</option>
-                                <option value="2 位">2 位</option>
-                                <option value="3 位">3 位</option>
-                                <option value="4 位">4 位</option>
+                                <option value="0" selected>0 位</option>
+                                <option value="1">1 位</option>
+                                <option value="2">2 位</option>
+                                <option value="3">3 位</option>
+                                <option value="4">4 位</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">是否需要兒童椅<span>BABY CHAIR</span></label>
+                        <label class="form-label">是否需要兒童椅<span>CHILD SEAT</span></label>
                         <select name="entry.1079849285" id="child_seat_select" class="form-control" onchange="toggleChildSeatLogic()">
                             <option value="不需要" selected>不需要</option>
                             <option value="需要">需要</option>
@@ -569,34 +525,34 @@
 
                     <div id="conditional_child_seat_count" class="conditional-group" style="margin-top: -10px; margin-bottom: 25px;">
                         <div class="form-group" style="margin-bottom: 0;">
-                            <label class="form-label">兒童椅張數<span>NUMBER OF BABY CHAIR NEEDED</span></label>
+                            <label class="form-label">兒童椅張數<span>NUMBER OF CHILD SEATS</span></label>
                             <select name="entry.1996855183" class="form-control">
-                                <option value="1 張" selected>1 張</option>
-                                <option value="2 張">2 張</option>
-                                <option value="3 張">3 張</option>
+                                <option value="1" selected>1 張</option>
+                                <option value="2">2 張</option>
+                                <option value="3">3 張</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">喜帖形式<span>INVITATION</span></label>
+                        <label class="form-label">喜帖索取<span>INVITATION STYLE</span></label>
                         <select name="entry.780173523" id="invitation_style" class="form-control" onchange="toggleAddressLogic()">
                             <option value="" disabled selected>請選擇喜帖形式</option>
-                            <option value="電子喜帖">電子喜帖</option>
-                            <option value="紙本喜帖">紙本喜帖</option>
+                            <option value="電子喜帖">不需要，電子喜帖即可</option>
+                            <option value="紙本喜帖（請於下一題填寫地址）">需要，請寄送紙本喜帖</option>
                         </select>
                     </div>
 
                     <div id="conditional_address" class="conditional-group">
                         <div class="form-group">
-                            <label class="form-label">喜帖寄送地址<span>ADDRESS</span></label>
+                            <label class="form-label">喜帖寄送地址<span>MAILING ADDRESS</span></label>
                             <input type="text" name="entry.249757274" id="address_input" class="form-control" placeholder="請輸入收件地址">
                         </div>
                     </div>
 
                 </div>
 
-                <button type="submit" class="btn-submit">送出回函</button>
+                <button type="submit" class="btn-submit">確認送出 Submit</button>
             </form>
         </div>
     </section>
@@ -636,29 +592,7 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // 2. 交通指引摺疊面板
-        function toggleAccordion(header) {
-            const content = header.nextElementSibling;
-            const icon = header.querySelector('.fa-chevron-down');
-            
-            document.querySelectorAll('.accordion-content').forEach(item => {
-                if (item !== content && item.style.maxHeight) {
-                    item.style.maxHeight = null;
-                    item.previousElementSibling.querySelector('.fa-chevron-down').style.transform = 'rotate(0deg)';
-                }
-            });
-
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                icon.style.transform = 'rotate(180deg)';
-                icon.style.transition = 'transform 0.3s';
-            }
-        }
-
-        // 3. 表單邏輯：參加人數 > 0 時，展開飲食、兒童椅與喜帖索取
+        // 2. 表單邏輯
         function toggleAttendanceLogic() {
             const countSelect = document.getElementById('attendance_count');
             const conditionalBlock = document.getElementById('conditional_diet_amenity');
@@ -673,7 +607,6 @@
             }
         }
 
-        // 4. 表單邏輯：選擇「需要」兒童椅時顯示張數
         function toggleChildSeatLogic() {
             const seatSelect = document.getElementById('child_seat_select');
             const seatCountBlock = document.getElementById('conditional_child_seat_count');
@@ -685,7 +618,6 @@
             }
         }
 
-        // 5. 表單邏輯：選擇「紙本喜帖」時顯示地址欄位
         function toggleAddressLogic() {
             const styleSelect = document.getElementById('invitation_style');
             const addressBlock = document.getElementById('conditional_address');
