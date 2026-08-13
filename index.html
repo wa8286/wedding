@@ -71,7 +71,7 @@
             color: var(--primary);
         }
 
-        /* 2. 全螢幕封面 */
+        /* 2. 全螢幕封面 (白色文字 + 尺寸 300 / 200 / 150 比例對應) */
         .hero {
             height: 100vh;
             position: relative;
@@ -81,29 +81,38 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #fff;
+            color: #ffffff; /* 改回白色文字 */
             padding: 20px;
         }
 
+        /* 英文名字：最大 300% (3.0rem) */
         .hero-names {
-            font-size: 1.5rem;
-            font-weight: 400;
+            font-size: 3.0rem;
+            font-weight: 600;
             margin-bottom: 5px;
             letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
+        /* 中文名字：200% (2.0rem) 放英文底下 */
         .hero-subnames {
-            font-size: 1.2rem;
-            letter-spacing: 6px;
-            margin-bottom: 30px;
-            opacity: 0.9;
+            font-size: 2.0rem;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        /* Slogan 大字，無邊框與背景 */
+        /* 靈魂標語：150% (1.5rem)，無邊框與背景 */
         .hero-slogan {
-            font-size: 3.5rem;
-            letter-spacing: 4px;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
             margin-bottom: 40px;
+            color: #ffffff;
+            font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         /* 3. 計時器視覺 */
