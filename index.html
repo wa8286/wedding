@@ -15,8 +15,7 @@
             --secondary: #8da399; /* Morandi 暮綠 */
             --bg-light: #fbfbf9;
             --text-dark: #4a4a4a;
-            --text-hero: #a27f6a; /* 針對白色背景調整的 Hero 區塊文字顏色 */
-            --white-glow: rgba(255, 255, 255, 0.9);
+            --white-glow: rgba(255, 255, 255, 0.85);
             --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
@@ -76,24 +75,21 @@
         .hero {
             height: 100vh;
             position: relative;
-            /* 1. 背景照片網址更新，2. 移除暗色遮罩 */
             background: url('https://i.postimg.cc/vZbLtxZt/11.png') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            /* 因背景變白，將原本白字改為 Morandi 咖啡色系以利閱讀 */
-            color: var(--text-hero);
+            color: #fff;
             padding: 20px;
         }
 
         .hero-names {
-            font-size: 1.5rem; /* 原本 Slogan 大小 */
+            font-size: 1.5rem;
             font-weight: 400;
             margin-bottom: 5px;
             letter-spacing: 3px;
-            color: var(--text-hero);
         }
 
         .hero-subnames {
@@ -101,17 +97,13 @@
             letter-spacing: 6px;
             margin-bottom: 30px;
             opacity: 0.9;
-            color: var(--text-hero);
         }
 
-        /* 3. Slogan 大字主題化，移除邊框與半透明背景 */
+        /* Slogan 大字，無邊框與背景 */
         .hero-slogan {
-            font-size: 3.5rem; /* 原本新人姓名字體大小 */
+            font-size: 3.5rem;
             letter-spacing: 4px;
-            /* 移除 border-top, border-bottom, padding, background, backdrop-filter */
             margin-bottom: 40px;
-            color: var(--primary); /* Slogan 使用暖陽金突顯 */
-            font-weight: 600;
         }
 
         /* 3. 計時器視覺 */
@@ -136,7 +128,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(212, 163, 115, 0.1);
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
         .timer-box {
@@ -365,15 +357,12 @@
             letter-spacing: 1px;
         }
 
-        /* 📱 手機版專屬視覺優化 (RWD Breakpoints) */
+        /* 手機版 RWD */
         @media (max-width: 600px) {
             .hero-names { font-size: 1.2rem; }
-            .hero-subnames { font-size: 1rem; letter-spacing: 4px; margin-bottom: 20px; }
-            .hero-slogan { font-size: 2.6rem; padding: 6px 15px; letter-spacing: 2px; }
-            .timer-container { gap: 10px; }
+            .hero-slogan { font-size: 2.6rem; padding: 8px 15px; }
             .timer-card { padding: 10px 5px; min-width: 60px; }
             .timer-num { font-size: 1.7rem; }
-            .timer-label { font-size: 0.7rem; }
             .v-card { padding: 40px 20px; }
             .section { padding: 50px 15px; }
             .navbar a { margin: 0 10px; font-size: 0.85rem; }
