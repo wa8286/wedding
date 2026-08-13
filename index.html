@@ -71,7 +71,54 @@
             color: var(--primary);
         }
 
-        /* 2. 全螢幕封面 */
+        /* 1. 預設設定：小型手機（直向螢幕，如 iPhone SE、一般舊款手機） */
+.hero {
+    height: 100vh;
+    position: relative;
+    /* 小手機：通常建議用 contain 完整顯示，或靠中靠上裁切以免主視覺消失 */
+    background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') center top/cover no-repeat;
+    background-color: #000000; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff; 
+    padding: 20px;
+}
+
+/* 2. 📱 中大型智慧型手機（寬度 480px 以上，如 iPhone Pro Max、Plus 或橫向手機） */
+@media (min-width: 480px) {
+    .hero {
+        /* 稍微寬一點的螢幕：改為靠左上裁切，保留圖片左側核心內容 */
+        background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') left top/cover no-repeat;
+    }
+}
+
+/* 3. 📑 平板電腦（寬度 768px 以上，如 iPad、Android Tablet） */
+@media (min-width: 768px) {
+    .hero {
+        /* 平板螢幕比較方：改用完全置中裁切 (center center)，讓兩邊對稱裁切 */
+        background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') center center/cover no-repeat;
+    }
+}
+
+/* 4. 💻 桌上型電腦與筆電（寬度 1024px 以上，如 MacBook、一般電腦螢幕） */
+@media (min-width: 1024px) {
+    .hero {
+        /* 寬螢幕：如果圖片重點在右邊，可以改成靠右中裁切；此處示範維持完美置中 */
+        background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') center center/cover no-repeat;
+    }
+}
+
+/* 5. 🖥️ 4K 或超寬螢幕（寬度 1440px 以上） */
+@media (min-width: 1440px) {
+    .hero {
+        /* 當螢幕極寬時，圖片上下會被嚴重裁切，可以強制調整對齊垂直軸（例如靠上方） */
+        background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://postimg.cc') center top/cover no-repeat;
+    }
+}
+
         .hero {
             height: 100vh;
             position: relative;
