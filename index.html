@@ -15,8 +15,9 @@
             --secondary: #8da399; /* Morandi 暮綠 */
             --bg-light: #fbfbf9;
             --text-dark: #4a4a4a;
-            --white-glow: rgba(255, 255, 255, 0.88);
-            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --text-hero: #a27f6a; /* 針對白色背景調整的 Hero 區塊文字顏色 */
+            --white-glow: rgba(255, 255, 255, 0.9);
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         * {
@@ -41,27 +42,26 @@
             white-space: nowrap;
         }
 
-        /* 1. 毛玻璃導航列優化 */
+        /* 1. 毛玻璃導航列 */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             display: flex;
             justify-content: center;
-            padding: 14px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            padding: 15px 0;
         }
 
         .navbar a {
             color: var(--text-dark);
             text-decoration: none;
-            margin: 0 18px;
+            margin: 0 20px;
             font-size: 0.95rem;
             letter-spacing: 2px;
             transition: color 0.3s;
@@ -72,96 +72,83 @@
             color: var(--primary);
         }
 
-        /* 2. 全螢幕封面與背景層優化 */
+        /* 2. 全螢幕封面 */
         .hero {
-            min-height: 100vh;
+            height: 100vh;
             position: relative;
-            /* 稍微調深黑淡化層 (rgba 0.35)，提升相片上文字的對比度 */
-            background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://postimg.cc/BLYv4zRF') center 30%/cover no-repeat;
+            /* 1. 背景照片網址更新，2. 移除暗色遮罩 */
+            background: url('https://i.postimg.cc/vZbLtxZt/11.png') center/cover no-repeat;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* 均勻拉開文字與計時器 */
+            justify-content: center;
             align-items: center;
             text-align: center;
-            color: #fff;
-            padding: 100px 20px 40px 20px;
+            /* 因背景變白，將原本白字改為 Morandi 咖啡色系以利閱讀 */
+            color: var(--text-hero);
+            padding: 20px;
         }
 
-        .hero-content-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            width: 100%;
-        }
-
-        /* 新人姓名與 Slogan，加上柔和文字陰影避免與婚紗背景撞色 */
         .hero-names {
-            font-size: 1.6rem;
+            font-size: 1.5rem; /* 原本 Slogan 大小 */
             font-weight: 400;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             letter-spacing: 3px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            color: var(--text-hero);
         }
 
         .hero-subnames {
-            font-size: 1.15rem;
-            letter-spacing: 5px;
-            margin-bottom: 25px;
-            opacity: 0.95;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-        }
-
-        .hero-slogan {
-            font-size: 3.2rem;
-            letter-spacing: 4px;
-            border-top: 1px solid rgba(255,255,255,0.6);
-            border-bottom: 1px solid rgba(255,255,255,0.6);
-            padding: 8px 25px;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
             margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            background: rgba(0, 0, 0, 0.1); /* 微微底色襯托 slogan */
-            backdrop-filter: blur(2px);
-            border-radius: 4px;
+            opacity: 0.9;
+            color: var(--text-hero);
         }
 
-        /* 3. 計時器視覺優化 */
+        /* 3. Slogan 大字主題化，移除邊框與半透明背景 */
+        .hero-slogan {
+            font-size: 3.5rem; /* 原本新人姓名字體大小 */
+            letter-spacing: 4px;
+            /* 移除 border-top, border-bottom, padding, background, backdrop-filter */
+            margin-bottom: 40px;
+            color: var(--primary); /* Slogan 使用暖陽金突顯 */
+            font-weight: 600;
+        }
+
+        /* 3. 計時器視覺 */
         .timer-container {
             display: flex;
-            gap: 10px;
-            max-width: 500px;
+            gap: 15px;
+            max-width: 600px;
             width: 100%;
             justify-content: center;
-            padding: 0 5px;
-            margin-top: auto; /* 推至最下方 */
+            padding: 0 10px;
         }
 
         .timer-card {
             background: var(--white-glow);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
             border-radius: 12px;
-            padding: 12px 6px;
+            padding: 15px 10px;
             flex: 1;
-            min-width: 0; /* 防止 RWD 撐開 */
+            min-width: 70px;
+            max-width: 110px;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid rgba(212, 163, 115, 0.1);
         }
 
         .timer-box {
             display: flex;
             align-items: center;
             width: 100%;
-            justify-content: space-evenly;
+            justify-content: space-around;
         }
 
         .timer-num {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 600;
             color: var(--primary);
             line-height: 1;
@@ -169,21 +156,21 @@
 
         .timer-divider {
             width: 1px;
-            height: 22px;
-            background-color: rgba(141, 163, 153, 0.35);
+            height: 25px;
+            background-color: rgba(141, 163, 153, 0.4);
         }
 
         .timer-label {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: var(--secondary);
             writing-mode: vertical-lr;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             font-weight: 600;
         }
 
         /* 4. 垂直 V-Card 資訊區 */
         .section {
-            padding: 80px 20px;
+            padding: 100px 20px;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -192,7 +179,7 @@
             background: white;
             border-radius: 16px;
             box-shadow: var(--shadow-soft);
-            padding: 45px 30px;
+            padding: 50px 40px;
             text-align: center;
             border: 1px solid rgba(212, 163, 115, 0.15);
             position: relative;
@@ -201,7 +188,7 @@
         .v-card::before {
             content: '';
             position: absolute;
-            top: 12px; left: 12px; right: 12px; bottom: 12px;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
             border: 1px solid rgba(141, 163, 153, 0.2);
             border-radius: 12px;
             pointer-events: none;
@@ -209,31 +196,31 @@
 
         .section-title {
             color: var(--primary);
-            font-size: 1.8rem;
-            margin-bottom: 35px;
+            font-size: 2rem;
+            margin-bottom: 40px;
             letter-spacing: 3px;
             position: relative;
         }
 
         .info-item {
-            margin-bottom: 28px;
+            margin-bottom: 30px;
         }
 
         .info-item i {
             color: var(--secondary);
-            font-size: 1.3rem;
-            margin-bottom: 8px;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
             display: block;
         }
 
         .info-item p {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             letter-spacing: 1px;
         }
 
         /* 5. 摺疊式交通指引 */
         .accordion {
-            margin-top: 35px;
+            margin-top: 40px;
             text-align: left;
         }
 
@@ -246,9 +233,9 @@
             width: 100%;
             background: none;
             border: none;
-            padding: 14px 8px;
+            padding: 15px 10px;
             text-align: left;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-family: 'Noto Serif TC', serif;
             color: var(--text-dark);
             cursor: pointer;
@@ -271,21 +258,21 @@
         }
 
         .accordion-body {
-            padding: 15px 18px;
-            font-size: 0.9rem;
+            padding: 20px;
+            font-size: 0.95rem;
             color: #666;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         /* 6. 表單控制項 */
         .form-group {
-            margin-bottom: 22px;
+            margin-bottom: 25px;
             text-align: left;
         }
 
         .form-row {
             display: flex;
-            gap: 12px;
+            gap: 15px;
         }
 
         .form-row .form-group {
@@ -294,28 +281,28 @@
 
         .form-label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-dark);
             letter-spacing: 1px;
         }
 
         .form-label span {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--secondary);
-            margin-left: 4px;
+            margin-left: 5px;
             letter-spacing: 1px;
         }
 
         .form-control {
             width: 100%;
-            padding: 11px 12px;
+            padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-family: 'Noto Serif TC', serif;
-            font-size: 0.95rem;
+            font-size: 1rem;
             transition: border-color 0.3s;
             background-color: #fff;
         }
@@ -330,15 +317,15 @@
             -webkit-appearance: none;
             background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><path d='M0 3l5 5 5-5z' fill='%238da399'/></svg>");
             background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 10px;
+            background-position: right 15px center;
+            background-size: 12px;
         }
 
         .conditional-group {
             display: none;
             border-left: 2px solid var(--primary);
-            padding-left: 12px;
-            margin-top: 15px;
+            padding-left: 15px;
+            margin-top: 20px;
             animation: fadeIn 0.4s ease;
         }
 
@@ -351,14 +338,14 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 14px 30px;
-            font-size: 1.05rem;
+            padding: 15px 40px;
+            font-size: 1.1rem;
             font-family: 'Noto Serif TC', serif;
             letter-spacing: 3px;
             border-radius: 30px;
             cursor: pointer;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 20px;
             box-shadow: 0 4px 15px rgba(212, 163, 115, 0.3);
             transition: all 0.3s;
             font-weight: 600;
@@ -367,29 +354,29 @@
         .btn-submit:hover {
             background-color: #c39263;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 163, 115, 0.4);
         }
 
         footer {
             text-align: center;
-            padding: 30px 20px;
-            font-size: 0.8rem;
+            padding: 40px 20px;
+            font-size: 0.85rem;
             color: var(--secondary);
             letter-spacing: 1px;
         }
 
         /* 📱 手機版專屬視覺優化 (RWD Breakpoints) */
         @media (max-width: 600px) {
-            .navbar a { margin: 0 10px; font-size: 0.85rem; }
-            .hero { padding: 90px 15px 30px 15px; }
-            .hero-names { font-size: 1.3rem; }
+            .hero-names { font-size: 1.2rem; }
             .hero-subnames { font-size: 1rem; letter-spacing: 4px; margin-bottom: 20px; }
-            .hero-slogan { font-size: 2.2rem; padding: 6px 15px; letter-spacing: 2px; }
-            .timer-container { gap: 6px; }
-            .timer-card { padding: 8px 3px; border-radius: 8px; }
-            .timer-num { font-size: 1.5rem; }
-            .timer-label { font-size: 0.65rem; }
-            .v-card { padding: 35px 18px; }
+            .hero-slogan { font-size: 2.6rem; padding: 6px 15px; letter-spacing: 2px; }
+            .timer-container { gap: 10px; }
+            .timer-card { padding: 10px 5px; min-width: 60px; }
+            .timer-num { font-size: 1.7rem; }
+            .timer-label { font-size: 0.7rem; }
+            .v-card { padding: 40px 20px; }
             .section { padding: 50px 15px; }
+            .navbar a { margin: 0 10px; font-size: 0.85rem; }
             .form-row { flex-direction: column; gap: 0; }
         }
     </style>
