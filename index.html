@@ -71,11 +71,11 @@
             color: var(--primary);
         }
 
-        /* 2. 全螢幕封面 (白色文字 + 尺寸 300 / 200 / 150 比例對應) */
+        /* 2. 全螢幕封面 */
         .hero {
             height: 100vh;
             position: relative;
-            background: url('https://i.postimg.cc/vZbLtxZt/11.png') center/cover no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('https://i.postimg.cc/vZbLtxZt/11.png') left top/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -85,34 +85,31 @@
             padding: 20px;
         }
 
-        /* 英文名字：最大 300% (3.0rem) */
+        /* 英文名字 */
         .hero-names {
-            font-size: 3.0rem;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-size: 3.5rem;
+            font-weight: 350;
+            margin-bottom: 3px;
             letter-spacing: 3px;
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* 中文名字：200% (2.0rem) 放英文底下 */
+        /* 中文名字 */
         .hero-subnames {
-            font-size: 2.0rem;
+            font-size: 1.8rem;
             letter-spacing: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
             color: #ffffff;
-            font-weight: 400;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        /* 靈魂標語：150% (1.5rem)，無邊框與背景 */
+        /* 靈魂標語 */
         .hero-slogan {
-            font-size: 1.5rem;
-            letter-spacing: 3px;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            border-top: 1px solid rgba(255,255,255,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+            padding: 10px 30px;
             margin-bottom: 40px;
-            color: #ffffff;
-            font-weight: 400;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         /* 3. 計時器視覺 */
@@ -439,7 +436,7 @@
             <div class="info-item">
                 <i class="fa-solid fa-location-dot"></i>
                 <p class="no-wrap"><b>台北市</b></p>
-                <p class="no-wrap" style="font-size: 0.95rem; color: #777; margin-top: 5px;">宴會地址與交通指南將隨正式喜帖寄送通知，敬請期待！</p>
+                <p class="no-wrap" style="font-size: 0.95rem; color: #777; margin-top: 5px;">宴會地址與交通指南將隨正式喜帖寄送通知！</p>
             </div>
         </div>
     </section>
