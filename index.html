@@ -72,25 +72,21 @@
             color: var(--primary);
         }
 
-        /* 2. 全螢幕封面（優化版面避免遮擋人物） */
+        /* 2. 電腦網頁版全螢幕封面 */
         .hero {
-            min-height: 100vh;
+            height: 100vh;
             position: relative;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('https://i.postimg.cc/vZbLtxZt/11.png');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://i.postimg.cc/vZbLtxZt/11.png');
             background-repeat: no-repeat;
-            background-position: center top;
+            background-position: left top;
             background-size: cover;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* 讓文字靠上，計時器適度懸浮 */
+            justify-content: center;
             align-items: center;
             text-align: center;
             color: #ffffff;
-            padding: 90px 20px 30px 20px;
-        }
-
-        .hero-text-container {
-            margin-top: 20px;
+            padding: 20px;
         }
 
         .hero-names {
@@ -105,45 +101,50 @@
         .hero-subnames {
             font-size: 2.0rem;
             letter-spacing: 4px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #ffffff;
             font-weight: 400;
             text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
+        /* 靈魂標語：上下加上金色/白色半透明橫槓邊框 */
         .hero-slogan {
             font-size: 1.5rem;
             letter-spacing: 3px;
             color: #ffffff;
             font-weight: 400;
             text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            display: inline-block;
+            border-top: 1px solid rgba(255, 255, 255, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 8px 30px;
+            margin-bottom: 30px;
         }
 
-        /* 3. 計時器視覺（精簡高度與寬度，避免壓人物） */
+        /* 3. 電腦版計時器：定位下移對齊新娘裙擺與草地接縫線 */
         .timer-container {
             display: flex;
-            gap: 12px;
-            max-width: 520px;
+            gap: 15px;
+            max-width: 600px;
             width: 100%;
             justify-content: center;
             padding: 0 10px;
-            margin-bottom: 20px; /* 留出底部空間 */
+            margin-top: 10vh; /* 將計時器壓至草地接縫交界處 */
         }
 
         .timer-card {
             background: var(--white-glow);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
             border-radius: 12px;
-            padding: 10px 8px;
+            padding: 15px 10px;
             flex: 1;
-            min-width: 65px;
-            max-width: 100px;
+            min-width: 70px;
+            max-width: 110px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255,255,255,0.6);
         }
 
         .timer-box {
@@ -155,7 +156,7 @@
 
         .timer-num {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.0rem;
+            font-size: 2.2rem;
             font-weight: 600;
             color: var(--primary);
             line-height: 1;
@@ -163,21 +164,21 @@
 
         .timer-divider {
             width: 1px;
-            height: 22px;
+            height: 25px;
             background-color: rgba(141, 163, 153, 0.4);
         }
 
         .timer-label {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: var(--secondary);
             writing-mode: vertical-lr;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             font-weight: 600;
         }
 
         /* 4. 卡片區塊 */
         .section {
-            padding: 90px 20px;
+            padding: 100px 20px;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -358,22 +359,21 @@
             letter-spacing: 1px;
         }
 
-        /* 📱 手機版防遮擋人物專屬排版 (RWD) */
+        /* 📱 手機版專屬優化 (RWD) */
         @media (max-width: 600px) {
             .hero {
-                /* 背景定位往上/往右對焦，確保新娘人物與海報完美露出 */
-                background-position: 20% top;
+                background-position: 70% top;
                 padding-top: 80px;
-                padding-bottom: 20px;
+                padding-bottom: 25px;
+                justify-content: space-between;
             }
             .hero-names { font-size: 2.2rem; }
-            .hero-subnames { font-size: 1.3rem; margin-bottom: 10px; }
-            .hero-slogan { font-size: 1.1rem; }
+            .hero-subnames { font-size: 1.3rem; margin-bottom: 12px; }
+            .hero-slogan { font-size: 1.1rem; padding: 6px 20px; margin-bottom: 15px; }
             
-            /* 精簡手機版計時器體積，防壓人物 */
             .timer-container {
                 gap: 8px;
-                margin-bottom: 10px;
+                margin-top: 0; /* 手機版不留大間距 */
             }
             .timer-card {
                 padding: 8px 4px;
@@ -393,7 +393,7 @@
         @media (max-width: 380px) {
             .hero-names { font-size: 1.8rem; }
             .hero-subnames { font-size: 1.1rem; }
-            .hero-slogan { font-size: 1.0rem; }
+            .hero-slogan { font-size: 1.0rem; padding: 4px 15px; }
             .timer-card { padding: 6px 2px; min-width: 48px; }
             .timer-num { font-size: 1.3rem; }
         }
@@ -408,7 +408,7 @@
     </nav>
 
     <header class="hero" id="about">
-        <div class="hero-text-container">
+        <div>
             <h1 class="hero-names en-font">Jimmy & Debbie</h1>
             <div class="hero-subnames">林群閔 & 楊韻玄</div>
             <div class="hero-slogan">人群之中＿只想玄你</div>
