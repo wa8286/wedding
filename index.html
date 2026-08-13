@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jimmy & Debbie 婚禮邀請函</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #d4a373; /* Morandi 暖陽金 */
+            --secondary: #8da399; /* Morandi 暮綠 */
+            --bg-light: #fbfbf9;
+            --text-dark: #4a4a4a;
+            --white-glow: rgba(255, 255, 255, 0.85);
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Serif TC', serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .en-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* 手機防跑版關鍵類別 */
+        .no-wrap {
+            white-space: nowrap;
+        }
+
+        /* 1. 毛玻璃導航列 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .navbar a {
+            color: var(--text-dark);
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+
+        .navbar a:hover {
+            color: var(--primary);
+        }
+
+        /* 2. 全螢幕封面 */
+        .hero {
+            height: 100vh;
+            position: relative;
+            /* 請在此處替換為步驟三生成的封面圖網址 */
+            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('11.png') left top/cover no-repeat;
+
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .hero-names {
+            font-size: 3.5rem;
+            font-weight: 350;
+            margin-bottom: 3px;
+            letter-spacing: 3px;
+        }
+
+        .hero-subnames {
+            font-size: 1.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            color: #ffffff;
+        }
+
+        .hero-slogan {
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            border-top: 1px solid rgba(255,255,255,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+            padding: 10px 30px;
+            margin-bottom: 40px;
+        }
+
+        /* 3. 藝術感計時器 */
+        .timer-container {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            width: 100%;
+            justify-content: center;
+            padding: 0 10px;
+        }
+
+        .timer-card {
+            background: var(--white-glow);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 15px 10px;
+            flex: 1;
+            min-width: 70px;
+            max-width: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .timer-box {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-around;
+        }
+
+        .timer-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .timer-divider {
+            width: 1px;
+            height: 25px;
+            background-color: rgba(141, 163, 153, 0.4);
+        }
+
+        .timer-label {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            writing-mode: vertical-lr;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* 4. 垂直 V-Card 資訊區 */
+        .section {
+            padding: 100px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .v-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-soft);
+            padding: 50px 40px;
+            text-align: center;
+            border: 1px solid rgba(212, 163, 115, 0.15);
+            position: relative;
+        }
+
+        .v-card::before {
+            content: '';
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid rgba(141, 163, 153, 0.2);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .info-item {
+            margin-bottom: 30px;
+        }
+
+        .info-item i {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .info-item p {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* 5. 摺疊式交通指引 */
+        .accordion {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 15px 10px;
+            text-align: left;
+            font-size: 1.05rem;
+            font-family: 'Noto Serif TC', serif;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .accordion-header:hover {
+            color: var(--primary);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #fafafa;
+            border-radius: 4px;
+        }
+
+        .accordion-body {
+            padding: 20px;
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 6. 高質感智能表單 */
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+
+        .form-label span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            color: var(--secondary);
+            margin-left: 5px;
+            letter-spacing: 1px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            background-color: #fff;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        select.form-control {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><path d='M0 3l5 5 5-5z' fill='%238da399'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+        }
+
+        /* 隱藏邏輯區塊 */
+        .conditional-group {
+            display: none;
+            border-left: 2px solid var(--primary);
+            padding-left: 15px;
+            margin-top: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-family: 'Noto Serif TC', serif;
+            letter-spacing: 3px;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(212, 163, 115, 0.3);
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-submit:hover {
+            background-color: #c39263;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 163, 115, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.85rem;
+            color: var(--secondary);
+            letter-spacing: 1px;
+        }
+
+        /* RWD 手機版優化 */
+        @media (max-width: 600px) {
+            .hero-names { font-size: 2.6rem; }
+            .hero-slogan { font-size: 1.2rem; padding: 8px 15px; }
+            .timer-card { padding: 10px 5px; min-width: 60px; }
+            .timer-num { font-size: 1.7rem; }
+            .v-card { padding: 40px 20px; }
+            .navbar a { margin: 0 10px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#about">關於我們</a>
+        <a href="#details">婚禮詳情</a>
+        <a href="#rsvp">出席回函</a>
+    </nav>
+
+    <header class="hero" id="about">
+        <h1 class="hero-names en-font">Jimmy & Debbie</h1>
+        <div class="hero-subnames">林群閔 & 楊韻玄</div>
+        <div class="hero-slogan">人群之中＿只想玄你</div>
+        
+        <div class="timer-container">
+            <div class="timer-card">
+                <div class="timer-box">
+                    <span class="timer-num" id="days">00</span>
+                    <div class="timer-divider"></div>
+                    <span class="timer-label">天 DAYS</span>
+                </div>
+            </div>
+            <div class="timer-card">
+                <div class="timer-box">
+                    <span class="timer-num" id="hours">00</span>
+                    <div class="timer-divider"></div>
+                    <span class="timer-label">時 HRS</span>
+                </div>
+            </div>
+            <div class="timer-card">
+                <div class="timer-box">
+                    <span class="timer-num" id="minutes">00</span>
+                    <div class="timer-divider"></div>
+                    <span class="timer-label">分 MINS</span>
+                </div>
+            </div>
+            <div class="timer-card">
+                <div class="timer-box">
+                    <span class="timer-num" id="seconds">00</span>
+                    <div class="timer-divider"></div>
+                    <span class="timer-label">秒 SECS</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section" id="details">
+        <div class="v-card">
+            <h2 class="section-title">婚禮詳情</h2>
+            
+            <div class="info-item">
+                <i class="fa-regular fa-calendar-days"></i>
+                <p><b>2026 年 11 月 29 日</b></p>
+                <p style="font-size: 0.95rem; color: var(--secondary); margin-top: 5px;">
+                    12:00 入席 ｜ 12:30 準時開席
+                </p>
+            </div>
+            
+            <div class="info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <p class="no-wrap"><b>台北市</b></p>
+                <p class="no-wrap" style="font-size: 0.95rem; color: #777; margin-top: 5px;">宴會地址與交通指南將隨正式喜帖寄送通知，敬請期待！</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="rsvp" style="padding-top: 0;">
+        <div class="v-card">
+            <h2 class="section-title">出席回函</h2>
+            
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='#'; alert('填寫成功！非常期待您的蒞臨');}"></iframe>
+            
+            <form action="https://docs.google.com/forms/d/e/1FAIpQLSfqYAI8oZADSqTcx1xG07r4GaMJxgCO3DZxDPF0pAOLAvF4eg/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                
+                <div class="form-group">
+                    <label class="form-label">姓名<span>NAME</span></label>
+                    <input type="text" name="entry.887296731" class="form-control" required placeholder="請輸入您的姓名">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">電子信箱<span>EMAIL</span></label>
+                    <input type="email" name="entry.431495492" class="form-control" required placeholder="請輸入您的 Email">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">與新人的關係<span>RELATIONSHIP</span></label>
+                    <select name="entry.740676292" class="form-control" required>
+                        <option value="" disabled selected>請選擇</option>
+                        <option value="男方親戚">男方親戚</option>
+                        <option value="男方同學">男方同學</option>
+                        <option value="男方同事">男方同事</option>
+                        <option value="男方好友">男方好友</option>
+                        <option value="----------">----------</option>
+                        <option value="女方親戚">女方親戚</option>
+                        <option value="女方同事">女方同事</option>
+                        <option value="女方同學">女方同學</option>
+                        <option value="女方好友">女方好友</option>
+                    </select>
+                </div>
+
+<div class="form-group">
+                    <label class="form-label">參加午宴人數<span>ATTENDANCE NUMBER</span></label>
+                    <select name="entry.733303240" id="attendance_count" class="form-control" required onchange="toggleAttendanceLogic()">
+                        <option value="" disabled selected>請選擇人數</option>
+                        <option value="0">無法出席，祝福你們</option>
+                        <option value="1">1 人</option>
+                        <option value="2">2 人</option>
+                        <option value="3">3 人</option>
+                        <option value="4">4 人</option>
+                    </select>
+                </div>
+
+                <div id="conditional_diet_amenity" class="conditional-group">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">葷食人數<span>MEAT</span></label>
+                            <select name="entry.771437183" class="form-control">
+                                <option value="0 位" selected>0 位</option>
+                                <option value="1 位">1 位</option>
+                                <option value="2 位">2 位</option>
+                                <option value="3 位">3 位</option>
+                                <option value="4 位">4 位</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">素食人數<span>VEGETARIAN</span></label>
+                            <select name="entry.943134898" class="form-control">
+                                <option value="0 位" selected>0 位</option>
+                                <option value="1 位">1 位</option>
+                                <option value="2 位">2 位</option>
+                                <option value="3 位">3 位</option>
+                                <option value="4 位">4 位</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">是否需要兒童椅<span>CHILD SEAT</span></label>
+                        <select name="entry.1079849285" id="child_seat_select" class="form-control" onchange="toggleChildSeatLogic()">
+                            <option value="不需要" selected>不需要</option>
+                            <option value="需要">需要</option>
+                        </select>
+                    </div>
+
+                    <div id="conditional_child_seat_count" class="conditional-group" style="margin-top: -10px; margin-bottom: 25px;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label">兒童椅張數<span>NUMBER OF CHILD SEATS</span></label>
+                            <select name="entry.1996855183" class="form-control">
+                                <option value="1 張" selected>1 張</option>
+                                <option value="2 張">2 張</option>
+                                <option value="3 張">3 張</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">喜帖型式<span>INVITATION</span></label>
+                        <select name="entry.780173523" id="invitation_style" class="form-control" onchange="toggleAddressLogic()">
+                            <option value="" disabled selected>請選擇喜帖形式</option>
+                            <option value="電子喜帖">電子喜帖</option>
+                            <option value="紙本喜帖">紙本喜帖</option>
+                        </select>
+                    </div>
+
+                    <div id="conditional_address" class="conditional-group">
+                        <div class="form-group">
+                            <label class="form-label">喜帖寄送地址<span>ADDRESS</span></label>
+                            <input type="text" name="entry.249757274" id="address_input" class="form-control" placeholder="請輸入收件地址">
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn-submit">送出回函</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p class="en-font">&copy; 2026 Jimmy & Debbie Wedding. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        var submitted = false;
+
+        // 1. 倒數計時器
+        const targetDate = new Date('2026-11-29T12:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+                return;
+            }
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+            document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
+            document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 2. 交通指引摺疊面板
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.fa-chevron-down');
+            
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                if (item !== content && item.style.maxHeight) {
+                    item.style.maxHeight = null;
+                    item.previousElementSibling.querySelector('.fa-chevron-down').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.style.transform = 'rotate(180deg)';
+                icon.style.transition = 'transform 0.3s';
+            }
+        }
+
+        // 3. 表單邏輯：參加人數 > 0 時，展開飲食、兒童椅與喜帖索取
+        function toggleAttendanceLogic() {
+            const countSelect = document.getElementById('attendance_count');
+            const conditionalBlock = document.getElementById('conditional_diet_amenity');
+            const invitationStyle = document.getElementById('invitation_style');
+            
+            if (parseInt(countSelect.value) > 0) {
+                conditionalBlock.style.display = 'block';
+                invitationStyle.setAttribute('required', 'required');
+            } else {
+                conditionalBlock.style.display = 'none';
+                invitationStyle.removeAttribute('required');
+            }
+        }
+
+        // 4. 表單邏輯：選擇「需要」兒童椅時顯示張數
+        function toggleChildSeatLogic() {
+            const seatSelect = document.getElementById('child_seat_select');
+            const seatCountBlock = document.getElementById('conditional_child_seat_count');
+            
+            if (seatSelect.value === '需要') {
+                seatCountBlock.style.display = 'block';
+            } else {
+                seatCountBlock.style.display = 'none';
+            }
+        }
+
+        // 5. 表單邏輯：選擇「紙本喜帖」時顯示地址欄位
+        function toggleAddressLogic() {
+            const styleSelect = document.getElementById('invitation_style');
+            const addressBlock = document.getElementById('conditional_address');
+            const addressInput = document.getElementById('address_input');
+            
+            if (styleSelect.value.includes('紙本喜帖')) {
+                addressBlock.style.display = 'block';
+                addressInput.setAttribute('required', 'required');
+            } else {
+                addressBlock.style.display = 'none';
+                addressInput.removeAttribute('required');
+                addressInput.value = '';
+            }
+        }
+    </script>
+</body>
+</html>
