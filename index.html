@@ -107,7 +107,7 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
-        /* 靈魂標語：上下加上金色/白色半透明橫槓邊框 */
+        /* 靈魂標語：上下半透明橫槓邊框 */
         .hero-slogan {
             font-size: 1.5rem;
             letter-spacing: 3px;
@@ -118,18 +118,21 @@
             border-top: 1px solid rgba(255, 255, 255, 0.6);
             border-bottom: 1px solid rgba(255, 255, 255, 0.6);
             padding: 8px 30px;
-            margin-bottom: 30px;
         }
 
-        /* 3. 電腦版計時器：定位下移對齊新娘裙擺與草地接縫線 */
+        /* 3. 電腦版計時器 */
         .timer-container {
+            position: absolute;
+            bottom: 70px; /* 貼近封面底部草地區域 */
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             gap: 15px;
             max-width: 600px;
             width: 100%;
             justify-content: center;
             padding: 0 10px;
-            margin-top: 10vh; /* 將計時器壓至草地接縫交界處 */
+            z-index: 10;
         }
 
         .timer-card {
@@ -362,7 +365,7 @@
         /* 📱 手機版專屬優化 (RWD) */
         @media (max-width: 600px) {
             .hero {
-                background-position: 70% top;
+                background-position: left top;
                 padding-top: 80px;
                 padding-bottom: 25px;
                 justify-content: space-between;
@@ -372,8 +375,11 @@
             .hero-slogan { font-size: 1.1rem; padding: 6px 20px; margin-bottom: 15px; }
             
             .timer-container {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
                 gap: 8px;
-                margin-top: 0; /* 手機版不留大間距 */
             }
             .timer-card {
                 padding: 8px 4px;
@@ -391,6 +397,9 @@
         }
 
         @media (max-width: 380px) {
+            .hero {
+                background-position: left top;
+            }
             .hero-names { font-size: 1.8rem; }
             .hero-subnames { font-size: 1.1rem; }
             .hero-slogan { font-size: 1.0rem; padding: 4px 15px; }
