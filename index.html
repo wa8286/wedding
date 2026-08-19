@@ -912,36 +912,147 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-function toggleAttendanceLogic() {
-    const count = getAttendanceCount();
-    const block = document.getElementById('conditional_diet_amenity');
+    function toggleAttendanceLogic() {
+        const select = document.getElementById('attendance_count');
+        const block = document.getElementById('conditional_diet_amenity');
 
-    if (!block) {
-        return;
+        const meatCount = document.getElementById('meatCount');
+        const vegCount = document.getElementById('vegCount');
+        const meatDisplay = document.getElementById('meatCountDisplay');
+        const vegDisplay = document.getElementById('vegCountDisplay');
+
+        if (!select || !block) return;
+
+        const count = Number(select.value);
+
+        if (count > 0) {
+            block.style.display = 'block';
+
+            // 出席人數改變後：
+            // 預設全部葷食，素食 0 人
+            if (meatCount) meatCount.value = count;
+            if (vegCount) vegCount.value = 0;
+
+            if (meatDisplay) meatDisplay.textContent = `${count} 位`;
+            if (vegDisplay) vegDisplay.textContent = `0 位`;
+
+            updateMealButtons();
+        } else {
+            block.style.display = 'none';
+
+            if (meatCount) meatCount.value = 0;
+            if (vegCount) vegCount.value = 0;
+
+            if (meatDisplay) meatDisplay.textContent = '0 位';
+            if (vegDisplay) vegDisplay.textContent = '0 位';
+
+            const chair = document.getElementById('child_seat_select');
+            const highChair = document.getElementById('high_chair_select');
+            const chairCount = document.getElementById('childChairCount');
+            const chairBlock = document.getElementById('conditional_child_seat_count');
+
+            if (chair) chair.value = '';
+            if (highChair) highChair.value = '';
+            if (chairCount) chairCount.value = '';
+            if (chairBlock) chairBlock.style.display = 'none';
+
+            updateMealButtons();
+        }
     }
 
-    if (count > 0) {
-        block.style.display = 'block';
+    function changeMealCount(type, step) {
+        const attendance = Number(
+            document.getElementById('attendance_count')?.value || 0
+        );
 
-        mealCounts.meat = count;
-        mealCounts.veg = 0;
+        if (attendance <= 0) return;
 
-        updateMealCountDisplay();
+        const meatInput = document.getElementById('meatCount');
+        const vegInput = document.getElementById('vegCount');
 
-    } else {
-        block.style.display = 'none';
+        if (!meatInput || !vegInput) return;
 
-        resetMealCounts();
+        let meat = Number(meatInput.value) || 0;
+        let veg = Number(vegInput.value) || 0;
 
-        const chair = document.getElementById('high_chair_select');
-        const chairBlock = document.getElementById('conditional_child_seat_count');
-        const chairCount = document.getElementById('childChairCount');
+        if (type === 'meat') {
+            const newMeat = meat + step;
 
-        if (chair) chair.value = '';
-        if (chairBlock) chairBlock.style.display = 'none';
-        if (chairCount) chairCount.value = '';
+            // 葷食不能小於 0
+            if (newMeat < 0) return;
+
+            // 葷食 + 素食不能超過出席人數
+            if (newMeat + veg > attendance) return;
+
+            meat = newMeat;
+        }
+
+        if (type === 'veg') {
+         const newVeg = veg + step;
+
+            // 素食不能小於 0
+            if (newVeg < 0) return;
+
+            // 素食增加時，必須有可轉換的葷食人數
+            if (meat + newVeg > attendance) return;
+
+            veg = newVeg;
+        }
+
+        meatInput.value = meat;
+        vegInput.value = veg;
+
+        document.getElementById('meatCountDisplay').textContent = `${meat} 位`;
+        document.getElementById('vegCountDisplay').textContent = `${veg} 位`;
+
+        updateMealButtons();
     }
-}
+
+    function updateMealButtons() {
+        const attendance = Number(
+            document.getElementById('attendance_count')?.value || 0
+        );
+
+        const meat = Number(
+            document.getElementById('meatCount')?.value || 0
+        );
+
+        const veg = Number(
+            document.getElementById('vegCount')?.value || 0
+        );
+
+        const buttons = document.querySelectorAll(
+            '.number-btn[data-meal-type][data-step]'
+        );
+
+        buttons.forEach(button => {
+           const type = button.dataset.mealType;
+           const step = Number(button.dataset.step);
+
+           let disabled = false;
+
+           if (step < 0) {
+               // 不可減到 0 以下
+               if (type === 'meat' && meat <= 0) {
+                   disabled = true;
+               }
+
+               if (type === 'veg' && veg <= 0) {
+                  disabled = true;
+                }
+            }
+
+            if (step > 0) {
+                // 葷 + 素已達出席人數
+                if (meat + veg >= attendance) {
+                    disabled = true;
+                }
+            }
+            button.disabled = disabled;
+        });
+    }
+    
+
 
     /* ===== 地址：縣市 → 行政區 → 郵遞區號 ===== */
     const twZipData = {
@@ -1081,8 +1192,6 @@ function toggleAttendanceLogic() {
         }
         submitted = true;
     });
-
-    updateMealCountDisplay();
 </script>
 
 </body>
