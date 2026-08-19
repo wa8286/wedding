@@ -124,24 +124,38 @@
             margin-bottom: 4px;
             letter-spacing: 3px;
             color: #ffffff;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+            text-shadow:
+                0 1px 1px rgba(0, 0, 0, 0.9),
+                0 3px 6px rgba(0, 0, 0, 0.75),
+                0 6px 18px rgba(0, 0, 0, 0.55),
+                0 0 22px rgba(0, 0, 0, 0.30);
         }
-
+        
         .hero-subnames {
             font-size: 1.8rem;
             letter-spacing: 5px;
             margin-bottom: 16px;
             color: #ffffff;
             font-weight: 400;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+            text-shadow:
+                0 1px 1px rgba(0, 0, 0, 0.85),
+                0 3px 6px rgba(0, 0, 0, 0.7),
+                0 5px 14px rgba(0, 0, 0, 0.5),
+                0 0 18px rgba(0, 0, 0, 0.25);
         }
-
+        
         .hero-slogan {
             font-size: 1.35rem;
             letter-spacing: 3px;
             color: #ffffff;
             font-weight: 400;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+
+            text-shadow:
+                0 1px 1px rgba(0, 0, 0, 0.85),
+                0 3px 6px rgba(0, 0, 0, 0.7),
+                0 5px 14px rgba(0, 0, 0, 0.5),
+                0 0 18px rgba(0, 0, 0, 0.25);
+
             display: inline-block;
             border-top: 1px solid rgba(255, 255, 255, 0.6);
             border-bottom: 1px solid rgba(255, 255, 255, 0.6);
@@ -335,6 +349,47 @@
             flex: 1;
         }
 
+        .number-control {
+            width: 100%;
+            min-height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(138, 121, 104, 0.3);
+            border-radius: 8px;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        .number-btn {
+            width: 48px;
+            height: 46px;
+            border: none;
+            background: transparent;
+            color: var(--champagne-gold);
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .number-btn:hover:not(:disabled) {
+            background-color: rgba(179, 139, 89, 0.1);
+        }
+
+        .number-btn:disabled {
+            color: #c9c1b8;
+            cursor: not-allowed;
+        }
+
+        .number-value {
+            flex: 1;
+            text-align: center;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
         .form-label {
             display: block;
             margin-bottom: 8px;
@@ -374,6 +429,27 @@
             border-color: var(--champagne-gold);
             box-shadow: 0 0 0 3px rgba(179, 139, 89, 0.15);
         }
+
+        .form-control:disabled {
+            background-color: #f4f1ec;
+            color: #9b9288;
+            cursor: not-allowed;
+        }
+
+        .address-row .form-group {
+            margin-bottom: 18px;
+        }
+
+        .zip-preview {
+            min-height: 1.5em;
+            margin: -8px 0 18px;
+            color: var(--champagne-gold);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-align: left;
+        }
+
+
 
         select.form-control {
             appearance: none;
@@ -444,6 +520,13 @@
 
         /* 📱 6. 視窗縮小與手機版深度優化 (針對截圖問題精準修復) */
         @media (max-width: 850px) {
+            /* 婚禮主視覺資訊：手機版維持單行，不允許自動換行 */
+            .mobile-couple-banner .no-wrap,
+            .info-item .no-wrap {
+                white-space: nowrap !important;
+                overflow-wrap: normal !important;
+                word-break: keep-all !important;
+            }
             .navbar {
                 padding: 0 15px;
             }
@@ -453,6 +536,19 @@
             }
             .nav-logo, .nav-date {
                 font-size: 1.1rem;
+            }
+
+            .mobile-couple-banner .m-names-en {
+                font-size: clamp(1.35rem, 6vw, 2rem);
+            }
+            .mobile-couple-banner .m-names-cn,
+            .mobile-couple-banner .m-slogan {
+                font-size: clamp(0.9rem, 4vw, 1.15rem);
+                letter-spacing: 0.04em;
+            }
+            .info-item .no-wrap {
+                font-size: clamp(0.9rem, 3.8vw, 1.05rem) !important;
+                letter-spacing: 0.02em;
             }
 
             /* 🎯 關鍵修復 1：背景位置精準鎖定人物正中心 (42% 38%) */
@@ -535,7 +631,7 @@
 
         <div class="hero-text-box">
             <h1 class="hero-names en-font no-wrap">Jimmy & Debbie</h1>
-            <div class="hero-subnames no-wrap">林群閔 • 楊韻玄</div>
+            <div class="hero-subnames no-wrap">林群閔、楊韻玄</div>
             <div class="hero-slogan no-wrap">人群之中_就想玄你</div>
         </div>
 
@@ -575,8 +671,8 @@
 
     <div class="mobile-couple-banner">
         <h2 class="m-names-en no-wrap">Jimmy & Debbie</h2>
-        <div class="m-names-cn no-wrap">林群閔 • 楊韻玄</div>
-        <div class="m-slogan no-wrap">「 人群之中，就想玄你 」</div>
+        <div class="m-names-cn no-wrap">林群閔、楊韻玄</div>
+        <div class="m-slogan no-wrap">人群之中_就想玄你</div>
     </div>
 
     <section class="timer-section-pc" id="countdown-section">
@@ -619,9 +715,9 @@
             
             <div class="info-item">
                 <i class="fa-regular fa-calendar-days"></i>
-                <p class="no-wrap"><b>2026 年 11 月 29 日 (星期日)</b></p>
+                <p class="no-wrap"><b>2026年11月29日</b></p>
                 <p class="no-wrap" style="font-size: 1.05rem; color: var(--champagne-gold); margin-top: 5px;">
-                    12:00 入席 ｜ 12:30 準時開席
+                    12:00入席｜12:30準時開席
                 </p>
             </div>
             
@@ -668,7 +764,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label no-wrap">參加午宴人數<span>GUESTS</span><span class="required">*</span></label>
+                    <label class="form-label no-wrap">參加人數<span>GUESTS</span><span class="required">*</span></label>
+                    <span>⚠️使用兒童椅或推車之同行幼童『無須計算』，請於下方題目另行填寫⚠️</span>
                     <select name="entry.733303240" id="attendance_count" class="form-control" required onchange="toggleAttendanceLogic()">
                         <option value="" disabled selected>請選擇</option>
                         <option value="0">無法出席，獻上祝福</option>
@@ -683,45 +780,49 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label no-wrap">葷食人數<span>NON-VEGETARIAN</span></label>
-                            <select name="entry.771437183" id="meatCount" class="form-control">
-                                <option value="" disabled selected>請選擇</option>
-                                <option value="0 位">0 位</option>
-                                <option value="1 位">1 位</option>
-                                <option value="2 位">2 位</option>
-                                <option value="3 位">3 位</option>
-                                <option value="4 位">4 位</option>
-                            </select>
+                            <div class="number-control">
+                                <button type="button" class="number-btn" onclick="changeMealCount('meat', -1)" data-meal-type="meat" data-step="-1" aria-label="減少葷食人數">−</button>
+                                <span id="meatCountDisplay" class="number-value">0 位</span>
+                                <button type="button" class="number-btn" onclick="changeMealCount('meat', 1)" data-meal-type="meat" data-step="1" aria-label="增加葷食人數">＋</button>
+                            </div>
+                            <input type="hidden" name="entry.771437183" id="meatCount" value="0 位">
                         </div>
                         <div class="form-group">
                             <label class="form-label no-wrap">素食人數<span>VEGETARIAN</span></label>
-                            <select name="entry.943134898" id="vegCount" class="form-control">
-                                <option value="" disabled selected>請選擇</option>
-                                <option value="0 位">0 位</option>
-                                <option value="1 位">1 位</option>
-                                <option value="2 位">2 位</option>
-                                <option value="3 位">3 位</option>
-                                <option value="4 位">4 位</option>
-                            </select>
+                            <div class="number-control">
+                                <button type="button" class="number-btn" onclick="changeMealCount('veg', -1)" data-meal-type="veg" data-step="-1" aria-label="減少素食人數">−</button>
+                                <span id="vegCountDisplay" class="number-value">0 位</span>
+                                <button type="button" class="number-btn" onclick="changeMealCount('veg', 1)" data-meal-type="veg" data-step="1" aria-label="增加素食人數">＋</button>
+                            </div>
+                            <input type="hidden" name="entry.943134898" id="vegCount" value="0 位">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label no-wrap">是否需要兒童椅<span>HIGH CHAIR NEEDED</span></label>
+                        <label class="form-label no-wrap">『推車』是否需帶進場<span>STROLLER</span></label>
                         <select name="entry.1079849285" id="child_seat_select" class="form-control" onchange="toggleChildSeatLogic()">
                             <option value="" disabled selected>請選擇</option>
-                            <option value="不需要">不需要</option>
+                            <option value="是">是，推車需停留在桌邊</option>
+                            <option value="否">否，推車可收摺置於場外</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label no-wrap">是否需要『兒童椅』<span>HIGH CHAIR NEEDED</span></label>
+                        <select name="entry.1981633292" id="high_chair_select" class="form-control" onchange="toggleChildSeatLogic()">
+                            <option value="" disabled selected>請選擇</option>
                             <option value="需要">需要</option>
+                            <option value="不需要">不需要</option>
                         </select>
                     </div>
 
                     <div id="conditional_child_seat_count" class="conditional-group" style="margin-top: -10px; margin-bottom: 25px;">
-                        <div class="form-group" style="margin-bottom: 0;">
+                        <div class="form-group">
                             <label class="form-label no-wrap">兒童椅所需數量<span>NUMBER OF HIGH CHAIR</span></label>
                             <select name="entry.1996855183" id="childChairCount" class="form-control">
                                 <option value="" disabled selected>請選擇</option>
-                                <option value="1 張">1 張</option>
-                                <option value="2 張">2 張</option>
-                                <option value="3 張">3 張</option>
+                                <option value="1 張">1</option>
+                                <option value="2 張">2</option>
                             </select>
                         </div>
                     </div>
@@ -737,18 +838,38 @@
                 </div>
 
                 <div id="conditional_address" class="conditional-group">
-                    <div class="form-group">
-                        <label class="form-label no-wrap">喜帖寄送地址<span>MAILING ADDRESS</span><span class="required">*</span></label>
-                        <input type="text" name="entry.249757274" id="address_input" class="form-control" placeholder="請輸入郵遞區號與詳細完整收件地址">
+                    <div class="form-row address-row">
+                        <div class="form-group">
+                            <label class="form-label no-wrap">縣市<span>CITY</span><span class="required">*</span></label>
+                            <select id="citySelect" class="form-control">
+                                <option value="" disabled selected>請選擇縣市</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label no-wrap">行政區<span>DISTRICT</span><span class="required">*</span></label>
+                            <select id="districtSelect" class="form-control" disabled>
+                                <option value="" disabled selected>請先選擇縣市</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="form-label no-wrap">詳細地址<span>ADDRESS</span><span class="required">*</span></label>
+                        <input type="text" id="streetInput" class="form-control" placeholder="請輸入路、街、巷、弄、號、樓等詳細地址">
+                    </div>
+
+                    <div id="zipPreview" class="zip-preview" aria-live="polite"></div>
+                    <input type="hidden" name="entry.249757274" id="address_input" value="">
                 </div>
 
                 <button type="submit" class="btn-submit no-wrap">確認送出回函 ✦ SUBMIT</button>
             </form>
 
             <div id="successMessage">
-                <h3>資訊已收到，感謝您的回覆！</h3>
-                <p style="color: #666; margin-top: 8px;">我們非常期待在婚禮當天與您相聚！</p>
+                <p style="color: #666; margin-top: 8px;">若有任何問題與狀況，都歡迎隨時與我們聯繫</p>
+                <p style="color: #666; margin-top: 15px;">非常期待在婚禮當天與您相見！</p>
+                <p style="color: #666; margin-top: 20px;">　</p>
+                <p style="color: #666; margin-top: 10px;">Jimmy群閔 、 Debbie韻玄</p>
             </div>
         </div>
     </section>
@@ -756,78 +877,265 @@
     <footer>
         <p class="en-font no-wrap">&copy; 2026 Jimmy & Debbie Wedding. All Rights Reserved.</p>
     </footer>
+    
 
-    <script>
-        var submitted = false;
 
-        // 1. 倒數計時器 (目標：2026-11-29 12:00)
-        const targetDate = new Date('2026-11-29T12:00:00+08:00').getTime();
 
-        function updateCountdown() {
-            const diff = targetDate - Date.now();
-            if (diff <= 0) return;
+<script>
+    let submitted = false;
 
-            const d = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
-            const h = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
-            const m = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
-            const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+    /* ===== 倒數計時器 ===== */
+    const targetDate = new Date('2026-11-29T12:00:00+08:00').getTime();
 
-            document.querySelectorAll('.timer-num.days').forEach(el => el.textContent = d);
-            document.querySelectorAll('.timer-num.hours').forEach(el => el.textContent = h);
-            document.querySelectorAll('.timer-num.minutes').forEach(el => el.textContent = m);
-            document.querySelectorAll('.timer-num.seconds').forEach(el => el.textContent = s);
+    function updateCountdown() {
+        const diff = targetDate - Date.now();
+        const days = document.querySelectorAll('.timer-num.days');
+        const hours = document.querySelectorAll('.timer-num.hours');
+        const minutes = document.querySelectorAll('.timer-num.minutes');
+        const seconds = document.querySelectorAll('.timer-num.seconds');
+
+        if (diff <= 0) {
+            days.forEach(el => el.textContent = '00');
+            hours.forEach(el => el.textContent = '00');
+            minutes.forEach(el => el.textContent = '00');
+            seconds.forEach(el => el.textContent = '00');
+            return;
         }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
 
-        // 2. 智能表單邏輯
-        function toggleAttendanceLogic() {
-            const countSelect = document.getElementById('attendance_count');
-            const conditionalBlock = document.getElementById('conditional_diet_amenity');
-            
-            if (parseInt(countSelect.value, 10) > 0) {
-                conditionalBlock.style.display = 'block';
-            } else {
-                conditionalBlock.style.display = 'none';
-                document.getElementById('meatCount').value = '';
-                document.getElementById('vegCount').value = '';
-                document.getElementById('child_seat_select').value = '';
-                document.getElementById('conditional_child_seat_count').style.display = 'none';
-                document.getElementById('childChairCount').value = '';
+        days.forEach(el => el.textContent = String(Math.floor(diff / 86400000)).padStart(2, '0'));
+        hours.forEach(el => el.textContent = String(Math.floor((diff / 3600000) % 24)).padStart(2, '0'));
+        minutes.forEach(el => el.textContent = String(Math.floor((diff / 60000) % 60)).padStart(2, '0'));
+        seconds.forEach(el => el.textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, '0'));
+    }
+
+    /* ===== 葷食／素食 ===== */
+    const mealCounts = { meat: 0, veg: 0 };
+
+    function getAttendanceCount() {
+        return parseInt(document.getElementById('attendance_count')?.value, 10) || 0;
+    }
+
+    function updateMealCountDisplay() {
+        const meatDisplay = document.getElementById('meatCountDisplay');
+        const vegDisplay = document.getElementById('vegCountDisplay');
+        const meatInput = document.getElementById('meatCount');
+        const vegInput = document.getElementById('vegCount');
+
+        if (!meatDisplay || !vegDisplay || !meatInput || !vegInput) return;
+
+        meatDisplay.textContent = `${mealCounts.meat} 位`;
+        vegDisplay.textContent = `${mealCounts.veg} 位`;
+        meatInput.value = `${mealCounts.meat} 位`;
+        vegInput.value = `${mealCounts.veg} 位`;
+
+        const total = getAttendanceCount();
+        const meatMinus = document.querySelector('[data-meal-type="meat"][data-step="-1"]');
+        const meatPlus = document.querySelector('[data-meal-type="meat"][data-step="1"]');
+        const vegMinus = document.querySelector('[data-meal-type="veg"][data-step="-1"]');
+        const vegPlus = document.querySelector('[data-meal-type="veg"][data-step="1"]');
+
+        if (meatMinus) meatMinus.disabled = mealCounts.meat <= 0;
+        if (vegMinus) vegMinus.disabled = mealCounts.veg <= 0;
+
+        const reachedTotal = mealCounts.meat + mealCounts.veg >= total;
+        if (meatPlus) meatPlus.disabled = reachedTotal;
+        if (vegPlus) vegPlus.disabled = reachedTotal;
+    }
+
+    function changeMealCount(type, delta) {
+        const total = getAttendanceCount();
+        if (total <= 0) return;
+
+        const next = mealCounts[type] + delta;
+        const other = type === 'meat' ? mealCounts.veg : mealCounts.meat;
+
+        if (next < 0 || next + other > total) return;
+
+        mealCounts[type] = next;
+        updateMealCountDisplay();
+    }
+
+    function resetMealCounts() {
+        mealCounts.meat = 0;
+        mealCounts.veg = 0;
+        updateMealCountDisplay();
+    }
+
+    function toggleAttendanceLogic() {
+        const count = getAttendanceCount();
+        const block = document.getElementById('conditional_diet_amenity');
+
+        if (!block) return;
+
+        if (count > 0) {
+            block.style.display = 'block';
+        } else {
+            block.style.display = 'none';
+            resetMealCounts();
+
+            const chair = document.getElementById('high_chair_select');
+            const chairBlock = document.getElementById('conditional_child_seat_count');
+            const chairCount = document.getElementById('childChairCount');
+
+            if (chair) chair.value = '';
+            if (chairBlock) chairBlock.style.display = 'none';
+            if (chairCount) chairCount.value = '';
+        }
+    }
+
+    function toggleChildSeatLogic() {
+        const select = document.getElementById('high_chair_select');
+        const block = document.getElementById('conditional_child_seat_count');
+        const count = document.getElementById('childChairCount');
+
+        if (!select || !block) return;
+
+        const needsChair = select.value === '需要';
+        block.style.display = needsChair ? 'block' : 'none';
+        if (!needsChair && count) count.value = '';
+    }
+
+    /* ===== 地址：縣市 → 行政區 → 郵遞區號 ===== */
+    const twZipData = {
+        "台北市": {"中正區":"100","大同區":"103","中山區":"104","松山區":"105","大安區":"106","萬華區":"108","信義區":"110","士林區":"111","北投區":"112","內湖區":"114","南港區":"115","文山區":"116"},
+        "基隆市": {"仁愛區":"200","信義區":"201","中正區":"202","中山區":"203","安樂區":"204","暖暖區":"205","七堵區":"206"},
+        "新北市": {"萬里區":"207","金山區":"208","板橋區":"220","汐止區":"221","深坑區":"222","石碇區":"223","瑞芳區":"224","平溪區":"226","雙溪區":"227","貢寮區":"228","新店區":"231","坪林區":"232","烏來區":"233","永和區":"234","中和區":"235","土城區":"236","三峽區":"237","樹林區":"238","鶯歌區":"239","三重區":"241","新莊區":"242","泰山區":"243","林口區":"244","蘆洲區":"247","五股區":"248","八里區":"249","淡水區":"251","三芝區":"252","石門區":"253"},
+        "宜蘭縣": {"宜蘭市":"260","頭城鎮":"261","礁溪鄉":"262","壯圍鄉":"263","員山鄉":"264","羅東鎮":"265","三星鄉":"266","大同鄉":"267","五結鄉":"268","冬山鄉":"269","蘇澳鎮":"270","南澳鄉":"272"},
+        "新竹市": {"東區":"300","北區":"300","香山區":"300"},
+        "新竹縣": {"竹北市":"302","湖口鄉":"303","新豐鄉":"304","新埔鎮":"305","關西鎮":"306","芎林鄉":"307","寶山鄉":"308","竹東鎮":"310","五峰鄉":"311","橫山鄉":"312","尖石鄉":"313","北埔鄉":"314","峨眉鄉":"315"},
+        "桃園市": {"中壢區":"320","平鎮區":"324","龍潭區":"325","楊梅區":"326","新屋區":"327","觀音區":"328","桃園區":"330","龜山區":"333","八德區":"334","大溪區":"335","復興區":"336","大園區":"337","蘆竹區":"338"},
+        "苗栗縣": {"竹南鎮":"350","頭份市":"351","三灣鄉":"352","南庄鄉":"353","獅潭鄉":"354","後龍鎮":"356","通霄鎮":"357","苑裡鎮":"358","苗栗市":"360","造橋鄉":"361","頭屋鄉":"362","公館鄉":"363","大湖鄉":"364","泰安鄉":"365","銅鑼鄉":"366","三義鄉":"367","西湖鄉":"368","卓蘭鎮":"369"},
+        "台中市": {"中區":"400","東區":"401","南區":"402","西區":"403","北區":"404","北屯區":"406","西屯區":"407","南屯區":"408","太平區":"411","大里區":"412","霧峰區":"413","烏日區":"414","豐原區":"420","后里區":"421","石岡區":"422","東勢區":"423","和平區":"424","新社區":"425","潭子區":"426","大雅區":"427","神岡區":"428","大肚區":"432","沙鹿區":"433","龍井區":"434","梧棲區":"435","清水區":"436","大甲區":"437","外埔區":"438","大安區":"439"},
+        "彰化縣": {"彰化市":"500","芬園鄉":"502","花壇鄉":"503","秀水鄉":"504","鹿港鎮":"505","福興鄉":"506","線西鄉":"507","和美鎮":"508","伸港鄉":"509","員林市":"510","社頭鄉":"511","永靖鄉":"512","埔心鄉":"513","溪湖鎮":"514","大村鄉":"515","埔鹽鄉":"516","田中鎮":"520","北斗鎮":"521","田尾鄉":"522","埤頭鄉":"523","溪州鄉":"524","竹塘鄉":"525","二林鎮":"526","大城鄉":"527","芳苑鄉":"528","二水鄉":"530"},
+        "南投縣": {"南投市":"540","中寮鄉":"541","草屯鎮":"542","國姓鄉":"544","埔里鎮":"545","仁愛鄉":"546","名間鄉":"551","集集鎮":"552","水里鄉":"553","魚池鄉":"555","信義鄉":"556","竹山鎮":"557","鹿谷鄉":"558"},
+        "嘉義市": {"東區":"600","西區":"600"},
+        "嘉義縣": {"番路鄉":"602","梅山鄉":"603","竹崎鄉":"604","阿里山鄉":"605","中埔鄉":"606","大埔鄉":"607","水上鄉":"608","鹿草鄉":"609","太保市":"612","朴子市":"613","東石鄉":"614","六腳鄉":"615","新港鄉":"616","民雄鄉":"621","大林鎮":"622","溪口鄉":"623","義竹鄉":"624","布袋鎮":"625"},
+        "雲林縣": {"斗南鎮":"630","大埤鄉":"631","虎尾鎮":"632","土庫鎮":"633","褒忠鄉":"634","東勢鄉":"635","臺西鄉":"636","崙背鄉":"637","麥寮鄉":"638","斗六市":"640","林內鄉":"643","古坑鄉":"646","莿桐鄉":"647","西螺鎮":"648","二崙鄉":"649","北港鎮":"651","水林鄉":"652","口湖鄉":"653","四湖鄉":"654","元長鄉":"655"},
+        "台南市": {"中西區":"700","東區":"701","南區":"702","北區":"704","安平區":"708","安南區":"709","永康區":"710","歸仁區":"711","新化區":"712","左鎮區":"713","玉井區":"714","楠西區":"715","南化區":"716","仁德區":"717","關廟區":"718","龍崎區":"719","官田區":"720","麻豆區":"721","佳里區":"722","西港區":"723","七股區":"724","將軍區":"725","學甲區":"726","北門區":"727","新營區":"730","後壁區":"731","白河區":"732","東山區":"733","六甲區":"734","下營區":"735","柳營區":"736","鹽水區":"737","善化區":"741","大內區":"742","山上區":"743","新市區":"744","安定區":"745"},
+        "高雄市": {"新興區":"800","前金區":"801","苓雅區":"802","鹽埕區":"803","鼓山區":"804","旗津區":"805","前鎮區":"806","三民區":"807","楠梓區":"811","小港區":"812","左營區":"813","仁武區":"814","大社區":"815","岡山區":"820","路竹區":"821","阿蓮區":"822","田寮鄉":"823","燕巢區":"824","橋頭區":"825","梓官區":"826","彌陀區":"827","永安區":"828","湖內區":"829","鳳山區":"830","大寮區":"831","林園區":"832","鳥松區":"833","大樹區":"840","旗山區":"842","美濃區":"843","六龜區":"844","內門區":"845","杉林區":"846","甲仙區":"847","桃源區":"848","那瑪夏區":"849","茂林區":"851","茄萣區":"852"},
+        "屏東縣": {"屏東市":"900","三地門鄉":"901","霧臺鄉":"902","瑪家鄉":"903","九如鄉":"904","里港鄉":"905","高樹鄉":"906","鹽埔鄉":"907","長治鄉":"908","麟洛鄉":"909","竹田鄉":"911","內埔鄉":"912","萬丹鄉":"913","潮州鎮":"920","泰武鄉":"921","來義鄉":"922","萬巒鄉":"923","崁頂鄉":"924","新埤鄉":"925","南州鄉":"926","林邊鄉":"927","東港鎮":"928","琉球鄉":"929","佳冬鄉":"931","新園鄉":"932","枋寮鄉":"940","枋山鄉":"941","春日鄉":"942","獅子鄉":"943","車城鄉":"944","牡丹鄉":"945","恆春鎮":"946","滿州鄉":"947"},
+        "台東縣": {"臺東市":"950","綠島鄉":"951","蘭嶼鄉":"952","延平鄉":"953","卑南鄉":"954","鹿野鄉":"955","關山鎮":"956","海端鄉":"957","池上鄉":"958","東河鄉":"959","成功鎮":"961","長濱鄉":"962","太麻里鄉":"963","金峰鄉":"964","大武鄉":"965","達仁鄉":"966"},
+        "花蓮縣": {"花蓮市":"970","新城鄉":"971","秀林鄉":"972","吉安鄉":"973","壽豐鄉":"974","鳳林鎮":"975","光復鄉":"976","豐濱鄉":"977","瑞穗鄉":"978","萬榮鄉":"979","玉里鎮":"981","卓溪鄉":"982","富里鄉":"983"},
+        "澎湖縣": {"馬公市":"880","西嶼鄉":"881","望安鄉":"882","七美鄉":"883","白沙鄉":"884","湖西鄉":"885"},
+        "金門縣": {"金沙鎮":"890","金湖鎮":"891","金寧鄉":"892","金城鎮":"893","烈嶼鄉":"894","烏坵鄉":"896"},
+        "連江縣": {"南竿鄉":"209","北竿鄉":"210","莒光鄉":"211","東引鄉":"212"}
+    };
+
+    function initCitySelect() {
+        const city = document.getElementById('citySelect');
+        if (!city || city.options.length > 1) return;
+        Object.keys(twZipData).forEach(name => {
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            city.appendChild(option);
+        });
+    }
+
+    function onCityChange() {
+        const city = document.getElementById('citySelect');
+        const district = document.getElementById('districtSelect');
+        if (!city || !district) return;
+
+        district.innerHTML = '<option value="" disabled selected>請選擇行政區</option>';
+        district.disabled = true;
+
+        const data = twZipData[city.value];
+        if (!data) {
+            updateFullAddress();
+            return;
+        }
+
+        Object.entries(data).forEach(([name, zip]) => {
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = `${zip} ${name}`;
+            option.dataset.zip = zip;
+            district.appendChild(option);
+        });
+
+        district.disabled = false;
+        updateFullAddress();
+    }
+
+    function updateFullAddress() {
+        const city = document.getElementById('citySelect');
+        const district = document.getElementById('districtSelect');
+        const detail = document.getElementById('streetInput');
+        const hidden = document.getElementById('address_input');
+        const preview = document.getElementById('zipPreview');
+
+        if (!city || !district || !detail || !hidden) return;
+
+        const selected = district.options[district.selectedIndex];
+        const zip = selected?.dataset?.zip || '';
+
+        if (preview) {
+            preview.textContent = zip ? `郵遞區號：${zip}` : '';
+        }
+
+        hidden.value = city.value && district.value && detail.value.trim()
+            ? `${zip} ${city.value}${district.value}${detail.value.trim()}`
+            : '';
+    }
+
+    function toggleAddressLogic() {
+        const style = document.getElementById('invitation_style');
+        const block = document.getElementById('conditional_address');
+        const city = document.getElementById('citySelect');
+        const district = document.getElementById('districtSelect');
+        const detail = document.getElementById('streetInput');
+        const hidden = document.getElementById('address_input');
+        const preview = document.getElementById('zipPreview');
+
+        if (!style || !block) return;
+
+        const isPaper = style.value === '紙本喜帖';
+        block.style.display = isPaper ? 'block' : 'none';
+
+        [city, district, detail].forEach(field => {
+            if (field) field.required = isPaper;
+        });
+
+        if (!isPaper) {
+            if (city) city.value = '';
+            if (district) {
+                district.innerHTML = '<option value="" disabled selected>請先選擇縣市</option>';
+                district.disabled = true;
+            }
+            if (detail) detail.value = '';
+            if (hidden) hidden.value = '';
+            if (preview) preview.textContent = '';
+        }
+    }
+
+    function onFormSubmitted() {
+        document.getElementById('weddingForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+    }
+
+    /* ===== 初始化 ===== */
+    initCitySelect();
+    document.getElementById('citySelect')?.addEventListener('change', onCityChange);
+    document.getElementById('districtSelect')?.addEventListener('change', updateFullAddress);
+    document.getElementById('streetInput')?.addEventListener('input', updateFullAddress);
+    toggleAddressLogic();
+
+    document.getElementById('weddingForm')?.addEventListener('submit', function (event) {
+        if (document.getElementById('invitation_style')?.value === '紙本喜帖') {
+            updateFullAddress();
+
+            if (!document.getElementById('address_input')?.value) {
+                event.preventDefault();
+                alert('請完整選擇縣市、行政區並填寫詳細地址。');
+                return;
             }
         }
+        submitted = true;
+    });
 
-        function toggleChildSeatLogic() {
-            const seatSelect = document.getElementById('child_seat_select');
-            const seatCountBlock = document.getElementById('conditional_child_seat_count');
-            
-            if (seatSelect.value === '需要') {
-                seatCountBlock.style.display = 'block';
-            } else {
-                seatCountBlock.style.display = 'none';
-                document.getElementById('childChairCount').value = '';
-            }
-        }
+    updateMealCountDisplay();
+</script>
 
-        function toggleAddressLogic() {
-            const styleSelect = document.getElementById('invitation_style');
-            const addressBlock = document.getElementById('conditional_address');
-            const addressInput = document.getElementById('address_input');
-            
-            if (styleSelect.value === '紙本喜帖') {
-                addressBlock.style.display = 'block';
-                addressInput.setAttribute('required', 'required');
-            } else {
-                addressBlock.style.display = 'none';
-                addressInput.removeAttribute('required');
-                addressInput.value = '';
-            }
-        }
-
-        function onFormSubmitted() {
-            document.getElementById('weddingForm').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-        }
-    </script>
 </body>
 </html>
