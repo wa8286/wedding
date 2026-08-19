@@ -912,7 +912,7 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    /* ===== 葷食／素食 ===== */
+/* ===== 葷食／素食 ===== */
 const mealCounts = {
     meat: 0,
     veg: 0
@@ -920,7 +920,12 @@ const mealCounts = {
 
 function getAttendanceCount() {
     const attendance = document.getElementById('attendance_count');
-    return parseInt(attendance?.value, 10) || 0;
+
+    if (!attendance) {
+        return 0;
+    }
+
+    return parseInt(attendance.value, 10) || 0;
 }
 
 function updateMealCountDisplay() {
@@ -929,7 +934,6 @@ function updateMealCountDisplay() {
     const meatInput = document.getElementById('meatCount');
     const vegInput = document.getElementById('vegCount');
 
-    // 更新畫面數字
     if (meatDisplay) {
         meatDisplay.textContent = mealCounts.meat + ' 位';
     }
@@ -938,7 +942,6 @@ function updateMealCountDisplay() {
         vegDisplay.textContent = mealCounts.veg + ' 位';
     }
 
-    // 更新 Google Form 隱藏欄位
     if (meatInput) {
         meatInput.value = mealCounts.meat;
     }
@@ -947,9 +950,6 @@ function updateMealCountDisplay() {
         vegInput.value = mealCounts.veg;
     }
 
-    const total = getAttendanceCount();
-
-    // 找到葷食按鈕
     const meatMinus = document.querySelector(
         '[data-meal-type="meat"][data-step="-1"]'
     );
@@ -958,7 +958,6 @@ function updateMealCountDisplay() {
         '[data-meal-type="meat"][data-step="1"]'
     );
 
-    // 找到素食按鈕
     const vegMinus = document.querySelector(
         '[data-meal-type="veg"][data-step="-1"]'
     );
@@ -967,62 +966,117 @@ function updateMealCountDisplay() {
         '[data-meal-type="veg"][data-step="1"]'
     );
 
-    // 減號
+    /*
+     * 葷食 -
+     * 有葷食才能按
+     */
     if (meatMinus) {
         meatMinus.disabled = mealCounts.meat <= 0;
     }
 
+    /*
+     * 素食 -
+     * 有素食才能按
+     */
     if (vegMinus) {
         vegMinus.disabled = mealCounts.veg <= 0;
     }
 
-    // 葷食 + 素食不能超過參加人數
-    const reachedTotal =
-        mealCounts.meat + mealCounts.veg >= total;
-
+    /*
+     * 葷食 +
+     * 有素食才能把素食改回葷食
+     */
     if (meatPlus) {
-        meatPlus.disabled = reachedTotal;
+        meatPlus.disabled = mealCounts.veg <= 0;
     }
 
+    /*
+     * 素食 +
+     * 有葷食才能把葷食改成素食
+     */
     if (vegPlus) {
-        vegPlus.disabled = reachedTotal;
+        vegPlus.disabled = mealCounts.meat <= 0;
     }
 }
 
 function changeMealCount(type, delta) {
     const total = getAttendanceCount();
 
-    // 沒有選參加人數
     if (total <= 0) {
         return;
     }
 
-    const current = mealCounts[type];
+    /*
+     * 素食 +
+     * 葷食 2、素食 0
+     * ↓
+     * 葷食 1、素食 1
+     */
+    if (type === 'veg' && delta === 1) {
+        if (mealCounts.meat <= 0) {
+            return;
+        }
 
-    if (typeof current !== 'number') {
+        mealCounts.meat--;
+        mealCounts.veg++;
+
+        updateMealCountDisplay();
         return;
     }
 
-    const next = current + delta;
+    /*
+     * 素食 -
+     * 葷食 1、素食 1
+     * ↓
+     * 葷食 2、素食 0
+     */
+    if (type === 'veg' && delta === -1) {
+        if (mealCounts.veg <= 0) {
+            return;
+        }
 
-    const otherType = type === 'meat' ? 'veg' : 'meat';
-    const otherCount = mealCounts[otherType];
+        mealCounts.veg--;
+        mealCounts.meat++;
 
-    // 不可以低於 0
-    if (next < 0) {
+        updateMealCountDisplay();
         return;
     }
 
-    // 葷食 + 素食不能超過參加人數
-    if (next + otherCount > total) {
+    /*
+     * 葷食 +
+     * 素食 1、葷食 1
+     * ↓
+     * 素食 0、葷食 2
+     */
+    if (type === 'meat' && delta === 1) {
+        if (mealCounts.veg <= 0) {
+            return;
+        }
+
+        mealCounts.veg--;
+        mealCounts.meat++;
+
+        updateMealCountDisplay();
         return;
     }
 
-    // 更新數字
-    mealCounts[type] = next;
+    /*
+     * 葷食 -
+     * 葷食 2、素食 0
+     * ↓
+     * 葷食 1、素食 1
+     */
+    if (type === 'meat' && delta === -1) {
+        if (mealCounts.meat <= 0) {
+            return;
+        }
 
-    // 更新畫面
-    updateMealCountDisplay();
+        mealCounts.meat--;
+        mealCounts.veg++;
+
+        updateMealCountDisplay();
+        return;
+    }
 }
 
 function resetMealCounts() {
@@ -1033,6 +1087,58 @@ function resetMealCounts() {
 }
 
 function toggleAttendanceLogic() {
+    const count = getAttendanceCount();
+    const block = document.getElementById('conditional_diet_amenity');
+
+    if (!block) {
+        return;
+    }
+
+    if (count > 0) {
+        /*
+         * 顯示葷食／素食區塊
+         */
+        block.style.display = 'block';
+
+        /*
+         * 預設全部為葷食
+         *
+         * 1 位 → 葷 1、素 0
+         * 2 位 → 葷 2、素 0
+         * 3 位 → 葷 3、素 0
+         * 4 位 → 葷 4、素 0
+         */
+        mealCounts.meat = count;
+        mealCounts.veg = 0;
+
+        updateMealCountDisplay();
+
+    } else {
+        /*
+         * 無法出席
+         */
+        block.style.display = 'none';
+
+        resetMealCounts();
+
+        const chair = document.getElementById('high_chair_select');
+        const chairBlock = document.getElementById('conditional_child_seat_count');
+        const chairCount = document.getElementById('childChairCount');
+
+        if (chair) {
+            chair.value = '';
+        }
+
+        if (chairBlock) {
+            chairBlock.style.display = 'none';
+        }
+
+        if (chairCount) {
+            chairCount.value = '';
+        }
+    }
+}
+ {
     const count = getAttendanceCount();
     const block = document.getElementById('conditional_diet_amenity');
 
