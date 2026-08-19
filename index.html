@@ -783,7 +783,7 @@
                             <div class="number-control">
                                 <button type="button" class="number-btn" onclick="changeMealCount('meat', -1)" data-meal-type="meat" data-step="-1" aria-label="減少葷食人數">−</button>
                                 <span id="meatCountDisplay" class="number-value">0 位</span>
-                                <button type="button" class="number-btn" data-meal-type="meat" data-step="1" aria-label="增加葷食人數">＋</button>
+                                <button type="button" class="number-btn" onclick="changeMealCount('meat', 1)" data-meal-type="meat" data-step="1" aria-label="增加葷食人數">＋</button>
                             </div>
                             <input type="hidden" name="entry.771437183" id="meatCount" value="0">
                         </div>
@@ -792,7 +792,7 @@
                             <div class="number-control">
                                 <button type="button" class="number-btn" onclick="changeMealCount('veg', -1)" data-meal-type="veg" data-step="-1" aria-label="減少素食人數">−</button>
                                 <span id="vegCountDisplay" class="number-value">0 位</span>
-                                <button type="button" class="number-btn" data-meal-type="veg" data-step="1" aria-label="增加素食人數">＋</button>
+                                <button type="button" class="number-btn" onclick="changeMealCount('veg', 1)" data-meal-type="veg" data-step="1" aria-label="增加素食人數">＋</button>
                             </div>
                             <input type="hidden" name="entry.943134898" id="vegCount" value="0">
                         </div>
@@ -912,180 +912,6 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-/* ===== 葷食／素食 ===== */
-const mealCounts = {
-    meat: 0,
-    veg: 0
-};
-
-function getAttendanceCount() {
-    const attendance = document.getElementById('attendance_count');
-
-    if (!attendance) {
-        return 0;
-    }
-
-    return parseInt(attendance.value, 10) || 0;
-}
-
-function updateMealCountDisplay() {
-    const meatDisplay = document.getElementById('meatCountDisplay');
-    const vegDisplay = document.getElementById('vegCountDisplay');
-    const meatInput = document.getElementById('meatCount');
-    const vegInput = document.getElementById('vegCount');
-
-    if (meatDisplay) {
-        meatDisplay.textContent = mealCounts.meat + ' 位';
-    }
-
-    if (vegDisplay) {
-        vegDisplay.textContent = mealCounts.veg + ' 位';
-    }
-
-    if (meatInput) {
-        meatInput.value = mealCounts.meat;
-    }
-
-    if (vegInput) {
-        vegInput.value = mealCounts.veg;
-    }
-
-    const meatMinus = document.querySelector(
-        '[data-meal-type="meat"][data-step="-1"]'
-    );
-
-    const meatPlus = document.querySelector(
-        '[data-meal-type="meat"][data-step="1"]'
-    );
-
-    const vegMinus = document.querySelector(
-        '[data-meal-type="veg"][data-step="-1"]'
-    );
-
-    const vegPlus = document.querySelector(
-        '[data-meal-type="veg"][data-step="1"]'
-    );
-
-    /*
-     * 葷食 -
-     * 有葷食才能按
-     */
-    if (meatMinus) {
-        meatMinus.disabled = mealCounts.meat <= 0;
-    }
-
-    /*
-     * 素食 -
-     * 有素食才能按
-     */
-    if (vegMinus) {
-        vegMinus.disabled = mealCounts.veg <= 0;
-    }
-
-    /*
-     * 葷食 +
-     * 有素食才能把素食改回葷食
-     */
-    if (meatPlus) {
-        meatPlus.disabled = mealCounts.veg <= 0;
-    }
-
-    /*
-     * 素食 +
-     * 有葷食才能把葷食改成素食
-     */
-    if (vegPlus) {
-        vegPlus.disabled = mealCounts.meat <= 0;
-    }
-}
-
-function changeMealCount(type, delta) {
-    const total = getAttendanceCount();
-
-    if (total <= 0) {
-        return;
-    }
-
-    /*
-     * 素食 +
-     * 葷食 2、素食 0
-     * ↓
-     * 葷食 1、素食 1
-     */
-    if (type === 'veg' && delta === 1) {
-        if (mealCounts.meat <= 0) {
-            return;
-        }
-
-        mealCounts.meat--;
-        mealCounts.veg++;
-
-        updateMealCountDisplay();
-        return;
-    }
-
-    /*
-     * 素食 -
-     * 葷食 1、素食 1
-     * ↓
-     * 葷食 2、素食 0
-     */
-    if (type === 'veg' && delta === -1) {
-        if (mealCounts.veg <= 0) {
-            return;
-        }
-
-        mealCounts.veg--;
-        mealCounts.meat++;
-
-        updateMealCountDisplay();
-        return;
-    }
-
-    /*
-     * 葷食 +
-     * 素食 1、葷食 1
-     * ↓
-     * 素食 0、葷食 2
-     */
-    if (type === 'meat' && delta === 1) {
-        if (mealCounts.veg <= 0) {
-            return;
-        }
-
-        mealCounts.veg--;
-        mealCounts.meat++;
-
-        updateMealCountDisplay();
-        return;
-    }
-
-    /*
-     * 葷食 -
-     * 葷食 2、素食 0
-     * ↓
-     * 葷食 1、素食 1
-     */
-    if (type === 'meat' && delta === -1) {
-        if (mealCounts.meat <= 0) {
-            return;
-        }
-
-        mealCounts.meat--;
-        mealCounts.veg++;
-
-        updateMealCountDisplay();
-        return;
-    }
-}
-
-function resetMealCounts() {
-    mealCounts.meat = 0;
-    mealCounts.veg = 0;
-
-    updateMealCountDisplay();
-}
-
 function toggleAttendanceLogic() {
     const count = getAttendanceCount();
     const block = document.getElementById('conditional_diet_amenity');
@@ -1095,28 +921,14 @@ function toggleAttendanceLogic() {
     }
 
     if (count > 0) {
-        /*
-         * 顯示葷食／素食區塊
-         */
         block.style.display = 'block';
 
-        /*
-         * 預設全部為葷食
-         *
-         * 1 位 → 葷 1、素 0
-         * 2 位 → 葷 2、素 0
-         * 3 位 → 葷 3、素 0
-         * 4 位 → 葷 4、素 0
-         */
         mealCounts.meat = count;
         mealCounts.veg = 0;
 
         updateMealCountDisplay();
 
     } else {
-        /*
-         * 無法出席
-         */
         block.style.display = 'none';
 
         resetMealCounts();
@@ -1125,67 +937,11 @@ function toggleAttendanceLogic() {
         const chairBlock = document.getElementById('conditional_child_seat_count');
         const chairCount = document.getElementById('childChairCount');
 
-        if (chair) {
-            chair.value = '';
-        }
-
-        if (chairBlock) {
-            chairBlock.style.display = 'none';
-        }
-
-        if (chairCount) {
-            chairCount.value = '';
-        }
+        if (chair) chair.value = '';
+        if (chairBlock) chairBlock.style.display = 'none';
+        if (chairCount) chairCount.value = '';
     }
 }
- {
-    const count = getAttendanceCount();
-    const block = document.getElementById('conditional_diet_amenity');
-
-    if (!block) {
-        return;
-    }
-
-    if (count > 0) {
-        block.style.display = 'block';
-
-        // 選擇參加人數後，立即更新葷食／素食按鈕
-        updateMealCountDisplay();
-
-    } else {
-        block.style.display = 'none';
-
-        resetMealCounts();
-
-        const chair = document.getElementById('high_chair_select');
-        const chairBlock = document.getElementById('conditional_child_seat_count');
-        const chairCount = document.getElementById('childChairCount');
-
-        if (chair) {
-            chair.value = '';
-        }
-
-        if (chairBlock) {
-            chairBlock.style.display = 'none';
-        }
-
-        if (chairCount) {
-            chairCount.value = '';
-        }
-    }
-}
-
-    function toggleChildSeatLogic() {
-        const select = document.getElementById('high_chair_select');
-        const block = document.getElementById('conditional_child_seat_count');
-        const count = document.getElementById('childChairCount');
-
-        if (!select || !block) return;
-
-        const needsChair = select.value === '需要';
-        block.style.display = needsChair ? 'block' : 'none';
-        if (!needsChair && count) count.value = '';
-    }
 
     /* ===== 地址：縣市 → 行政區 → 郵遞區號 ===== */
     const twZipData = {
