@@ -785,7 +785,7 @@
                                 <span id="meatCountDisplay" class="number-value">0 位</span>
                                 <button type="button" class="number-btn" onclick="changeMealCount('meat', 1)" data-meal-type="meat" data-step="1" aria-label="增加葷食人數">＋</button>
                             </div>
-                            <input type="hidden" name="entry.771437183" id="meatCount" value="0 位">
+                            <input type="hidden" name="entry.771437183" id="meatCount" value="0">
                         </div>
                         <div class="form-group">
                             <label class="form-label no-wrap">素食人數<span>VEGETARIAN</span></label>
@@ -794,7 +794,7 @@
                                 <span id="vegCountDisplay" class="number-value">0 位</span>
                                 <button type="button" class="number-btn" onclick="changeMealCount('veg', 1)" data-meal-type="veg" data-step="1" aria-label="增加素食人數">＋</button>
                             </div>
-                            <input type="hidden" name="entry.943134898" id="vegCount" value="0 位">
+                            <input type="hidden" name="entry.943134898" id="vegCount" value="0">
                         </div>
                     </div>
 
@@ -869,7 +869,7 @@
                 <p style="color: #666; margin-top: 8px;">若有任何問題與狀況，都歡迎隨時與我們聯繫</p>
                 <p style="color: #666; margin-top: 15px;">非常期待在婚禮當天與您相見！</p>
                 <p style="color: #666; margin-top: 20px;">　</p>
-                <p style="color: #666; margin-top: 10px;">Jimmy群閔 、 Debbie韻玄</p>
+                <p style="color: #666; margin-top: 15px;">Jimmy群閔 、 Debbie韻玄</p>
             </div>
         </div>
     </section>
@@ -908,6 +908,10 @@
         seconds.forEach(el => el.textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, '0'));
     }
 
+    /* 啟動倒數計時器 */
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
     /* ===== 葷食／素食 ===== */
     const mealCounts = { meat: 0, veg: 0 };
 
@@ -921,12 +925,12 @@
         const meatInput = document.getElementById('meatCount');
         const vegInput = document.getElementById('vegCount');
 
-        if (!meatDisplay || !vegDisplay || !meatInput || !vegInput) return;
-
         meatDisplay.textContent = `${mealCounts.meat} 位`;
         vegDisplay.textContent = `${mealCounts.veg} 位`;
-        meatInput.value = `${mealCounts.meat} 位`;
-        vegInput.value = `${mealCounts.veg} 位`;
+
+        // Google Form 只傳數字
+        meatInput.value = mealCounts.meat;
+        vegInput.value = mealCounts.veg;
 
         const total = getAttendanceCount();
         const meatMinus = document.querySelector('[data-meal-type="meat"][data-step="-1"]');
