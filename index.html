@@ -866,6 +866,7 @@
             </form>
 
             <div id="successMessage">
+                <h3>資訊已收到，感謝您的回覆！</h3>
                 <p style="color: #666; margin-top: 8px;">若有任何問題與狀況，都歡迎隨時與我們聯繫</p>
                 <p style="color: #666; margin-top: 15px;">非常期待在婚禮當天與您相見！</p>
                 <p style="color: #666; margin-top: 20px;">　</p>
@@ -1052,7 +1053,22 @@
         });
     }
     
+    function toggleChildSeatLogic() {
+        const highChair = document.getElementById('high_chair_select');
+        const chairBlock = document.getElementById('conditional_child_seat_count');
+        const chairCount = document.getElementById('childChairCount');
 
+        if (!highChair || !chairBlock || !chairCount) return;
+
+        if (highChair.value === '需要') {
+            chairBlock.style.display = 'block';
+            chairCount.required = true;
+        } else {
+            chairBlock.style.display = 'none';
+            chairCount.value = '';
+            chairCount.required = false;
+        }
+    }
 
     /* ===== 地址：縣市 → 行政區 → 郵遞區號 ===== */
     const twZipData = {
@@ -1179,6 +1195,8 @@
     document.getElementById('districtSelect')?.addEventListener('change', updateFullAddress);
     document.getElementById('streetInput')?.addEventListener('input', updateFullAddress);
     toggleAddressLogic();
+    toggleAddressLogic();
+    toggleChildSeatLogic();
 
     document.getElementById('weddingForm')?.addEventListener('submit', function (event) {
         if (document.getElementById('invitation_style')?.value === '紙本喜帖') {
