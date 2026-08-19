@@ -783,7 +783,7 @@
                             <div class="number-control">
                                 <button type="button" class="number-btn" onclick="changeMealCount('meat', -1)" data-meal-type="meat" data-step="-1" aria-label="減少葷食人數">−</button>
                                 <span id="meatCountDisplay" class="number-value">0 位</span>
-                                <button type="button" class="number-btn" onclick="changeMealCount('meat', 1)" data-meal-type="meat" data-step="1" aria-label="增加葷食人數">＋</button>
+                                <button type="button" class="number-btn" data-meal-type="meat" data-step="1" aria-label="增加葷食人數">＋</button>
                             </div>
                             <input type="hidden" name="entry.771437183" id="meatCount" value="0">
                         </div>
@@ -792,7 +792,7 @@
                             <div class="number-control">
                                 <button type="button" class="number-btn" onclick="changeMealCount('veg', -1)" data-meal-type="veg" data-step="-1" aria-label="減少素食人數">−</button>
                                 <span id="vegCountDisplay" class="number-value">0 位</span>
-                                <button type="button" class="number-btn" onclick="changeMealCount('veg', 1)" data-meal-type="veg" data-step="1" aria-label="增加素食人數">＋</button>
+                                <button type="button" class="number-btn" data-meal-type="veg" data-step="1" aria-label="增加素食人數">＋</button>
                             </div>
                             <input type="hidden" name="entry.943134898" id="vegCount" value="0">
                         </div>
@@ -821,8 +821,8 @@
                             <label class="form-label no-wrap">兒童椅所需數量<span>NUMBER OF HIGH CHAIR</span></label>
                             <select name="entry.1996855183" id="childChairCount" class="form-control">
                                 <option value="" disabled selected>請選擇</option>
-                                <option value="1 張">1</option>
-                                <option value="2 張">2</option>
+                                <option value="1">1 張</option>
+                                <option value="2">2 張</option>
                             </select>
                         </div>
                     </div>
@@ -913,79 +913,161 @@
     setInterval(updateCountdown, 1000);
 
     /* ===== 葷食／素食 ===== */
-    const mealCounts = { meat: 0, veg: 0 };
+const mealCounts = {
+    meat: 0,
+    veg: 0
+};
 
-    function getAttendanceCount() {
-        return parseInt(document.getElementById('attendance_count')?.value, 10) || 0;
+function getAttendanceCount() {
+    const attendance = document.getElementById('attendance_count');
+    return parseInt(attendance?.value, 10) || 0;
+}
+
+function updateMealCountDisplay() {
+    const meatDisplay = document.getElementById('meatCountDisplay');
+    const vegDisplay = document.getElementById('vegCountDisplay');
+    const meatInput = document.getElementById('meatCount');
+    const vegInput = document.getElementById('vegCount');
+
+    // 更新畫面數字
+    if (meatDisplay) {
+        meatDisplay.textContent = mealCounts.meat + ' 位';
     }
 
-    function updateMealCountDisplay() {
-        const meatDisplay = document.getElementById('meatCountDisplay');
-        const vegDisplay = document.getElementById('vegCountDisplay');
-        const meatInput = document.getElementById('meatCount');
-        const vegInput = document.getElementById('vegCount');
+    if (vegDisplay) {
+        vegDisplay.textContent = mealCounts.veg + ' 位';
+    }
 
-        meatDisplay.textContent = `${mealCounts.meat} 位`;
-        vegDisplay.textContent = `${mealCounts.veg} 位`;
-
-        // Google Form 只傳數字
+    // 更新 Google Form 隱藏欄位
+    if (meatInput) {
         meatInput.value = mealCounts.meat;
+    }
+
+    if (vegInput) {
         vegInput.value = mealCounts.veg;
-
-        const total = getAttendanceCount();
-        const meatMinus = document.querySelector('[data-meal-type="meat"][data-step="-1"]');
-        const meatPlus = document.querySelector('[data-meal-type="meat"][data-step="1"]');
-        const vegMinus = document.querySelector('[data-meal-type="veg"][data-step="-1"]');
-        const vegPlus = document.querySelector('[data-meal-type="veg"][data-step="1"]');
-
-        if (meatMinus) meatMinus.disabled = mealCounts.meat <= 0;
-        if (vegMinus) vegMinus.disabled = mealCounts.veg <= 0;
-
-        const reachedTotal = mealCounts.meat + mealCounts.veg >= total;
-        if (meatPlus) meatPlus.disabled = reachedTotal;
-        if (vegPlus) vegPlus.disabled = reachedTotal;
     }
 
-    function changeMealCount(type, delta) {
-        const total = getAttendanceCount();
-        if (total <= 0) return;
+    const total = getAttendanceCount();
 
-        const next = mealCounts[type] + delta;
-        const other = type === 'meat' ? mealCounts.veg : mealCounts.meat;
+    // 找到葷食按鈕
+    const meatMinus = document.querySelector(
+        '[data-meal-type="meat"][data-step="-1"]'
+    );
 
-        if (next < 0 || next + other > total) return;
+    const meatPlus = document.querySelector(
+        '[data-meal-type="meat"][data-step="1"]'
+    );
 
-        mealCounts[type] = next;
+    // 找到素食按鈕
+    const vegMinus = document.querySelector(
+        '[data-meal-type="veg"][data-step="-1"]'
+    );
+
+    const vegPlus = document.querySelector(
+        '[data-meal-type="veg"][data-step="1"]'
+    );
+
+    // 減號
+    if (meatMinus) {
+        meatMinus.disabled = mealCounts.meat <= 0;
+    }
+
+    if (vegMinus) {
+        vegMinus.disabled = mealCounts.veg <= 0;
+    }
+
+    // 葷食 + 素食不能超過參加人數
+    const reachedTotal =
+        mealCounts.meat + mealCounts.veg >= total;
+
+    if (meatPlus) {
+        meatPlus.disabled = reachedTotal;
+    }
+
+    if (vegPlus) {
+        vegPlus.disabled = reachedTotal;
+    }
+}
+
+function changeMealCount(type, delta) {
+    const total = getAttendanceCount();
+
+    // 沒有選參加人數
+    if (total <= 0) {
+        return;
+    }
+
+    const current = mealCounts[type];
+
+    if (typeof current !== 'number') {
+        return;
+    }
+
+    const next = current + delta;
+
+    const otherType = type === 'meat' ? 'veg' : 'meat';
+    const otherCount = mealCounts[otherType];
+
+    // 不可以低於 0
+    if (next < 0) {
+        return;
+    }
+
+    // 葷食 + 素食不能超過參加人數
+    if (next + otherCount > total) {
+        return;
+    }
+
+    // 更新數字
+    mealCounts[type] = next;
+
+    // 更新畫面
+    updateMealCountDisplay();
+}
+
+function resetMealCounts() {
+    mealCounts.meat = 0;
+    mealCounts.veg = 0;
+
+    updateMealCountDisplay();
+}
+
+function toggleAttendanceLogic() {
+    const count = getAttendanceCount();
+    const block = document.getElementById('conditional_diet_amenity');
+
+    if (!block) {
+        return;
+    }
+
+    if (count > 0) {
+        block.style.display = 'block';
+
+        // 選擇參加人數後，立即更新葷食／素食按鈕
         updateMealCountDisplay();
-    }
 
-    function resetMealCounts() {
-        mealCounts.meat = 0;
-        mealCounts.veg = 0;
-        updateMealCountDisplay();
-    }
+    } else {
+        block.style.display = 'none';
 
-    function toggleAttendanceLogic() {
-        const count = getAttendanceCount();
-        const block = document.getElementById('conditional_diet_amenity');
+        resetMealCounts();
 
-        if (!block) return;
+        const chair = document.getElementById('high_chair_select');
+        const chairBlock = document.getElementById('conditional_child_seat_count');
+        const chairCount = document.getElementById('childChairCount');
 
-        if (count > 0) {
-            block.style.display = 'block';
-        } else {
-            block.style.display = 'none';
-            resetMealCounts();
+        if (chair) {
+            chair.value = '';
+        }
 
-            const chair = document.getElementById('high_chair_select');
-            const chairBlock = document.getElementById('conditional_child_seat_count');
-            const chairCount = document.getElementById('childChairCount');
+        if (chairBlock) {
+            chairBlock.style.display = 'none';
+        }
 
-            if (chair) chair.value = '';
-            if (chairBlock) chairBlock.style.display = 'none';
-            if (chairCount) chairCount.value = '';
+        if (chairCount) {
+            chairCount.value = '';
         }
     }
+}
 
     function toggleChildSeatLogic() {
         const select = document.getElementById('high_chair_select');
